@@ -1,5 +1,5 @@
 <?php
-
+use App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
-Route::get('/', function () { return view('welcome'); });
+Auth::routes(['verify' => true]);
+Route::get('/', function () { return view('welcome'); });//->middleware('verified');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Email Sender Route
+Route::get('email_NewOrder',function(){
+	return new \App\Mail\NewOrder();  //Ver página HTML com email
+	// Illuminate\Support\Facades\Mail::send(new \App\Mail\NewOrder()); //Enviar email
+});
