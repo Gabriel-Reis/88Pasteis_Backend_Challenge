@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +21,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'telefone',
+        'endereco',
+        'complemento',
+        'bairro',
+        'cep',
+        'cpf',
+        'cidade',
+        'estado',
+        'data_nasc',
+        'tipo'
     ];
 
     /**
@@ -37,7 +48,14 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    //protected $casts = [
+    //    'email_verified_at' => 'datetime',
+    //];
+
+    /**
+     * Opcional, informar a coluna deleted_at como um Mutator de data
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 }

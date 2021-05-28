@@ -21,6 +21,17 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('telefone');
+            $table->string('endereco');
+            $table->string('complemento');
+            $table->string('bairro');
+            $table->string('cep');
+            $table->string('cpf');
+            $table->string('cidade');
+            $table->string('estado');
+            $table->date('data_nasc');
+            $table->unsignedInteger('tipo');
+            $table->softDeletesTz('deleted_at', 0);
         });
     }
 
