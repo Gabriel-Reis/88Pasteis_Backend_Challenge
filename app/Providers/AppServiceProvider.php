@@ -32,11 +32,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Validator::extend('cpf', function($attribute, $value, $parameters, $validator) {
-            return preg_match('[0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[.-]?[0-9]{2}', $value) && strlen($value) >= 11;
+            return preg_match("/(\d)\1{10}/", $value) && strlen($value) >= 11;
         });
 
         Validator::extend('cep', function($attribute, $value, $parameters, $validator) {
-            return preg_match("^[0-9]{2}[.]?[0-9]{3}[-]?[0-9]{3}$", $value) && strlen($value) >= 11;
+            return preg_match("/^[0-9]{5,5}([- ]?[0-9]{3,3})?$/", $value) && strlen($value) >= 11;
         });
     }
 }

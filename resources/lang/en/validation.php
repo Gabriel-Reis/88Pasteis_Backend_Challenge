@@ -121,6 +121,10 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'cpf' => 'The :attribute must be valid',
+    'cep' => 'The :attribute must be valid',
+    'phone' => 'The :attribute must be valid',
+
 
     /*
     |--------------------------------------------------------------------------
