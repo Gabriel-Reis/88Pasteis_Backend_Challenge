@@ -25,6 +25,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="data_nasc" class="col-md-4 col-form-label text-md-right ">Data de Nascimento</label>
 
@@ -39,6 +40,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="cpf" class="col-md-4 col-form-label text-md-right">CPF</label>
 
@@ -53,6 +55,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -67,6 +70,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="telefone" class="col-md-4 col-form-label text-md-right">Telefone</label>
 
@@ -80,7 +84,9 @@
                                 @enderror
                             </div>
                         </div>
+
                         <hr>
+
                         <div class="form-group row">
                             <label for="cep" class="col-md-4 col-form-label text-md-right">CEP</label>
 
@@ -95,6 +101,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="endereco" class="col-md-4 col-form-label text-md-right">Endereço</label>
 
@@ -109,6 +116,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="complemento" class="col-md-4 col-form-label text-md-right">Complemento</label>
 
@@ -123,6 +131,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="bairro" class="col-md-4 col-form-label text-md-right">Bairro</label>
 
@@ -137,6 +146,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="cidade" class="col-md-4 col-form-label text-md-right">Cidade</label>
 
@@ -151,6 +161,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="estado" class="col-md-4 col-form-label text-md-right">Estado</label>
 
@@ -164,7 +175,9 @@
                                 @enderror
                             </div>
                         </div>
+
                         <hr>
+                        
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -179,6 +192,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -187,6 +201,7 @@
                             </div>
                         </div>
                         <br>
+                        
                         <div class="form-group row">
                             <input id="tipo" type="number" class="form-control" name="tipo" value="0" required autocomplete="tipo" hidden="true">
                         </div>
