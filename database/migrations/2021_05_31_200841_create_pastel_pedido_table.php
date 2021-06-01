@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePastelPedidosTable extends Migration
+class CreatePastelPedidoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePastelPedidosTable extends Migration
      */
     public function up()
     {
-        Schema::create('pastel_pedidos', function (Blueprint $table) {
+        Schema::create('pastel_pedido', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('Quantidade');
             $table->timestamps();
@@ -21,9 +21,9 @@ class CreatePastelPedidosTable extends Migration
             $table->foreignId('pedido_id')->unsigned()->index();
             $table->foreignId('pastel_id')->unsigned()->index();
         });
-        Schema::table('pastel_pedidos', function ($table) {
+        Schema::table('pastel_pedido', function ($table) {
             $table->foreign('pedido_id')->references('id')->on('pedidos');
-            $table->foreign('pastel_id')->references('id')->on('pastels');
+            $table->foreign('pastel_id')->references('id')->on('pasteis');
         });
     }
 
@@ -34,6 +34,6 @@ class CreatePastelPedidosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pastel_pedidos');
+        Schema::dropIfExists('pastel_pedido');
     }
 }
