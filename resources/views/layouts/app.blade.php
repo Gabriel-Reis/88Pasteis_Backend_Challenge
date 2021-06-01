@@ -26,6 +26,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style type="text/css">
+        @yield('css')
+    </style>
 </head>
 <body>
     <div id="app">
@@ -33,7 +37,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ asset('public/img/88pasteis_logo.png') }} --}}
-                    <img src="{{ asset("img/88pasteis_logo.png") }}" alt="88Pastéis" width="30" height="30" class="d-inline-block align-text-top">
+                    <img src="{{ asset("logo.png") }}" alt="88Pastéis" width="30" height="30" class="d-inline-block align-text-top">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -45,7 +49,7 @@
                     <ul class="navbar-nav mr-auto">
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('cardapio') }}">Cardápio</a>
+                                <a class="nav-link" href="{{ route('pasteis.index') }}">Cardápio</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Link </a>
@@ -108,7 +112,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 container">
             @yield('content')
         </main>
     </div>
