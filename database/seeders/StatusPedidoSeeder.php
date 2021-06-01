@@ -16,19 +16,21 @@ class StatusPedidoSeeder extends Seeder
     public function run()
     {
     	DB::table('status_pedidos')->insert([
-            'descricao' => 'Aguardando confirmação'
-        ]);
-        DB::table('status_pedidos')->insert([
+            [
+                'descricao' => 'Aguardando confirmação'
+            ],
+            [
             'descricao' => 'Em produção'
-        ]);
-        DB::table('status_pedidos')->insert([
-            'descricao' => 'Em rota de entrega'
-        ]);
-        DB::table('status_pedidos')->insert([
-            'descricao' => 'Entregue'
-        ]);
-        DB::table('status_pedidos')->insert([
-            'descricao' => 'Finalizado'
+            ],
+            [
+                'descricao' => 'Em rota de entrega'
+            ],
+            [
+                'descricao' => 'Entregue'
+            ],
+            [
+                'descricao' => 'Finalizado'
+            ]
         ]);
     }
 }
