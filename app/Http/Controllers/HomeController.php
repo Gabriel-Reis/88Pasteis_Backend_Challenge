@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pastel;
+use App\Models\Bebida;
+use DB;
 
 class HomeController extends Controller
 {
@@ -13,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('welcome');
     }
 
     /**
@@ -24,5 +27,13 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function welcome()
+    {
+        $pasteisSalgados = DB::table('pasteis')->where('salgado', '1')->get();
+        $pasteisDoces = DB::table('pasteis')->where('salgado', '0')->get();
+        $bebidas = Bebida::all();
+        return view('welcome')->with('pasteisSalgados', $pasteisSalgados)->with('pasteisDoces', $pasteisDoces)->with('bebidas', $bebidas);
     }
 }

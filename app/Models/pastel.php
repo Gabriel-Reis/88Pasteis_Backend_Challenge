@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pastel extends Model
+class Pastel extends Model
 {
     use HasFactory;
+    protected $table = 'pasteis';
 }

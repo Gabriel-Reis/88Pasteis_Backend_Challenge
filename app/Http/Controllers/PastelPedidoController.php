@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pastel_pedido;
+use App\Models\Pastel_pedido;
 use Illuminate\Http\Request;
 
 class PastelPedidoController extends Controller
@@ -41,10 +41,10 @@ class PastelPedidoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\pastel_pedido  $pastel_pedido
+     * @param  \App\Models\Pastel_pedido  $pastel_pedido
      * @return \Illuminate\Http\Response
      */
-    public function show(pastel_pedido $pastel_pedido)
+    public function show(Pastel_pedido $pastel_pedido)
     {
         //
     }
@@ -52,10 +52,10 @@ class PastelPedidoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\pastel_pedido  $pastel_pedido
+     * @param  \App\Models\Pastel_pedido  $pastel_pedido
      * @return \Illuminate\Http\Response
      */
-    public function edit(pastel_pedido $pastel_pedido)
+    public function edit(Pastel_pedido $pastel_pedido)
     {
         //
     }
@@ -64,10 +64,10 @@ class PastelPedidoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\pastel_pedido  $pastel_pedido
+     * @param  \App\Models\Pastel_pedido  $pastel_pedido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pastel_pedido $pastel_pedido)
+    public function update(Request $request, Pastel_pedido $pastel_pedido)
     {
         //
     }
@@ -75,10 +75,10 @@ class PastelPedidoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\pastel_pedido  $pastel_pedido
+     * @param  \App\Models\Pastel_pedido  $pastel_pedido
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pastel_pedido $pastel_pedido)
+    public function destroy(Pastel_pedido $pastel_pedido)
     {
         //
     }

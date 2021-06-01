@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\status_pedido;
+use App\Models\Status_pedido;
 use Illuminate\Http\Request;
 
 class StatusPedidoController extends Controller
@@ -41,10 +41,10 @@ class StatusPedidoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\status_pedido  $status_pedido
+     * @param  \App\Models\Status_pedido  $status_pedido
      * @return \Illuminate\Http\Response
      */
-    public function show(status_pedido $status_pedido)
+    public function show(Status_pedido $status_pedido)
     {
         //
     }
@@ -52,10 +52,10 @@ class StatusPedidoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\status_pedido  $status_pedido
+     * @param  \App\Models\Status_pedido  $status_pedido
      * @return \Illuminate\Http\Response
      */
-    public function edit(status_pedido $status_pedido)
+    public function edit(Status_pedido $status_pedido)
     {
         //
     }
@@ -64,10 +64,10 @@ class StatusPedidoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\status_pedido  $status_pedido
+     * @param  \App\Models\Status_pedido  $status_pedido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, status_pedido $status_pedido)
+    public function update(Request $request, Status_pedido $status_pedido)
     {
         //
     }
@@ -75,10 +75,10 @@ class StatusPedidoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\status_pedido  $status_pedido
+     * @param  \App\Models\Status_pedido  $status_pedido
      * @return \Illuminate\Http\Response
      */
-    public function destroy(status_pedido $status_pedido)
+    public function destroy(Status_pedido $status_pedido)
     {
         //
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pastel;
+use App\Models\Pastel;
 use Illuminate\Http\Request;
 
 class PastelController extends Controller
@@ -14,7 +14,8 @@ class PastelController extends Controller
      */
     public function index()
     {
-        //
+        $pasteis = Pastel::all();
+        return view('cardapio')->with('pasteis', $pasteis);
     }
 
     /**
@@ -41,10 +42,10 @@ class PastelController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\pastel  $pastel
+     * @param  \App\Models\Pastel  $pastel
      * @return \Illuminate\Http\Response
      */
-    public function show(pastel $pastel)
+    public function show(Pastel $pastel)
     {
         //
     }
@@ -52,10 +53,10 @@ class PastelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\pastel  $pastel
+     * @param  \App\Models\Pastel  $pastel
      * @return \Illuminate\Http\Response
      */
-    public function edit(pastel $pastel)
+    public function edit(Pastel $pastel)
     {
         //
     }
@@ -64,10 +65,10 @@ class PastelController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\pastel  $pastel
+     * @param  \App\Models\Pastel  $pastel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pastel $pastel)
+    public function update(Request $request, Pastel $pastel)
     {
         //
     }
@@ -75,10 +76,10 @@ class PastelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\pastel  $pastel
+     * @param  \App\Models\Pastel  $pastel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pastel $pastel)
+    public function destroy(Pastel $pastel)
     {
         //
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cupom;
+use App\Models\Cupom;
 use Illuminate\Http\Request;
 
 class CupomController extends Controller
@@ -41,10 +41,10 @@ class CupomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\cupom  $cupom
+     * @param  \App\Models\Cupom  $cupom
      * @return \Illuminate\Http\Response
      */
-    public function show(cupom $cupom)
+    public function show(Cupom $cupom)
     {
         //
     }
@@ -52,10 +52,10 @@ class CupomController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\cupom  $cupom
+     * @param  \App\Models\Cupom  $cupom
      * @return \Illuminate\Http\Response
      */
-    public function edit(cupom $cupom)
+    public function edit(Cupom $cupom)
     {
         //
     }
@@ -64,10 +64,10 @@ class CupomController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\cupom  $cupom
+     * @param  \App\Models\Cupom  $cupom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, cupom $cupom)
+    public function update(Request $request, Cupom $cupom)
     {
         //
     }
@@ -75,10 +75,10 @@ class CupomController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\cupom  $cupom
+     * @param  \App\Models\Cupom  $cupom
      * @return \Illuminate\Http\Response
      */
-    public function destroy(cupom $cupom)
+    public function destroy(Cupom $cupom)
     {
         //
     }

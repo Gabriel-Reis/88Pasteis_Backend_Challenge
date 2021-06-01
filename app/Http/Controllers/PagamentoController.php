@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pagamento;
+use App\Models\Pagamento;
 use Illuminate\Http\Request;
 
 class PagamentoController extends Controller
@@ -41,10 +41,10 @@ class PagamentoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\pagamento  $pagamento
+     * @param  \App\Models\Pagamento  $pagamento
      * @return \Illuminate\Http\Response
      */
-    public function show(pagamento $pagamento)
+    public function show(Pagamento $pagamento)
     {
         //
     }
@@ -52,10 +52,10 @@ class PagamentoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\pagamento  $pagamento
+     * @param  \App\Models\Pagamento  $pagamento
      * @return \Illuminate\Http\Response
      */
-    public function edit(pagamento $pagamento)
+    public function edit(Pagamento $pagamento)
     {
         //
     }
@@ -64,10 +64,10 @@ class PagamentoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\pagamento  $pagamento
+     * @param  \App\Models\Pagamento  $pagamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pagamento $pagamento)
+    public function update(Request $request, Pagamento $pagamento)
     {
         //
     }
@@ -75,10 +75,10 @@ class PagamentoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\pagamento  $pagamento
+     * @param  \App\Models\Pagamento  $pagamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pagamento $pagamento)
+    public function destroy(Pagamento $pagamento)
     {
         //
     }
