@@ -31,9 +31,8 @@ class HomeController extends Controller
 
     public function welcome()
     {
-        $pasteisSalgados = DB::table('pasteis')->where('salgado', '1')->get();
-        $pasteisDoces = DB::table('pasteis')->where('salgado', '0')->get();
+        $pasteis = DB::table('pasteis')->get();
         $bebidas = Bebida::all();
-        return view('welcome')->with('pasteisSalgados', $pasteisSalgados)->with('pasteisDoces', $pasteisDoces)->with('bebidas', $bebidas);
+        return view('welcome')->with('pasteis', $pasteis)->with('bebidas', $bebidas);
     }
 }
