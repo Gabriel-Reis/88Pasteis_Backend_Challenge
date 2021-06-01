@@ -16,7 +16,7 @@ use App\Http\Controllers\PastelController;
 
 Auth::routes(['verify' => true]);
 // Route::get('/', function () { return view('welcome'); });//->middleware('verified');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('/');
 
 
@@ -27,6 +27,13 @@ Route::get('email_NewOrder',function(){
 });
 
 
+ Route::resource('bebidas', PastelController::class);
+ Route::resource('bebida_pedido', BebidaPedidoController::class);
+ Route::resource('cupons', CupomController::class);
+ Route::resource('pagamentos', PagamentoController::class);
  Route::resource('pasteis', PastelController::class);
+ Route::resource('pastel_pedido', PastelPedidoController::class);
+ Route::resource('pedidos', PedidoController::class);
+ Route::resource('status_pedido', StatusPedidoController::class);
 //Página com cardapio
 //Route::get('/cardapio', function () { return view('cardapio'); })->name('cardapio');;//->middleware('verified');
