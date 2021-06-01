@@ -23,3 +23,6 @@ Route::get('email_NewOrder',function(){
 	return new \App\Mail\NewOrder();  //Ver página HTML com email
 	// Illuminate\Support\Facades\Mail::send(new \App\Mail\NewOrder()); //Enviar email
 });
+
+//Página com cardapio
+Route::get('/cardapio', function () { return view('cardapio'); })->name('cardapio');;//->middleware('verified');
