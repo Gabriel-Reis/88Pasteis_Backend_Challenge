@@ -1,6 +1,7 @@
 <?php
 use App\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PastelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['verify' => true]);
-Route::get('/', function () { return view('welcome'); });//->middleware('verified');
+// Route::get('/', function () { return view('welcome'); });//->middleware('verified');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('/');
 
 
 // Email Sender Route
@@ -24,5 +26,7 @@ Route::get('email_NewOrder',function(){
 	// Illuminate\Support\Facades\Mail::send(new \App\Mail\NewOrder()); //Enviar email
 });
 
+
+ Route::resource('pasteis', PastelController::class);
 //Página com cardapio
-Route::get('/cardapio', function () { return view('cardapio'); })->name('cardapio');;//->middleware('verified');
+//Route::get('/cardapio', function () { return view('cardapio'); })->name('cardapio');;//->middleware('verified');
