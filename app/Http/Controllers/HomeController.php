@@ -31,6 +31,16 @@ class HomeController extends Controller
 
     public function welcome()
     {
+        session()->put('cart', [
+            [   'id' => 1,
+                'qnt' => 2
+            ],
+            [ 
+                'id' => 2,
+                'qnt' => 1
+            ],
+        ]);
+
         $pasteis = DB::table('pasteis')->get();
         $bebidas = Bebida::all();
         return view('welcome')->with('pasteis', $pasteis)->with('bebidas', $bebidas);
