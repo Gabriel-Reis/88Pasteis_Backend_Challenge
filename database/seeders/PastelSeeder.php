@@ -37,16 +37,6 @@ class PastelSeeder extends Seeder
             	'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         	],
         	[
-            	'titulo' => 'Pastel de calabresa com cheddar',
-            	'descricao' => 'Pastel com recheio de calabresa com cheddar',
-            	'foto' => '/images/pasteis/calabresa_cheddar.jpg',
-            	'salgado' => '1',
-            	'preco_unit' => '7.5',
-            	'disponivel' => '1',
-            	'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            	'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-        	],
-        	[
             	'titulo' => 'Pastel de carne',
             	'descricao' => 'Pastel com recheio de carne',
             	'foto' => '/images/pasteis/carne.jpg',
