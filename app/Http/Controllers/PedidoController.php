@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Pedido;
 use Illuminate\Http\Request;
+use App\Models\Pagamento;
+use App\Models\Pastel;
+use App\Models\Bebida;
+use App\Models\Cupom;
+use DB;
+
 
 class PedidoController extends Controller
 {
@@ -14,7 +19,7 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+        $this->middleware('auth');
     }
 
     /**
@@ -24,7 +29,11 @@ class PedidoController extends Controller
      */
     public function create()
     {
-        //
+        $pasteis = DB::table('pasteis')->get();
+        $bebidas = Bebida::all();
+        $cupons = Cupom::all();
+        $pagamentos = Pagamento::all();
+        return view('sections.pedido.create')->with('pasteis', $pasteis)->with('bebidas', $bebidas)->with('cupons', $cupons)->with('pagamentos', $pagamentos);
     }
 
     /**
