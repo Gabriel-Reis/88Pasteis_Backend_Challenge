@@ -20,6 +20,8 @@ class CreateCuponsTable extends Migration
             $table->timestamp('date_ini');
             $table->timestamp('date_end');
             $table->unsignedDecimal('desconto', 5, 2);
+            $table->unsignedDecimal('min_value', 10, 2);
+            $table->boolean('percentage');
             $table->timestamps();
             $table->softDeletesTz('deleted_at', 0);
             $table->foreignId('created_by')->unsigned()->index();;
