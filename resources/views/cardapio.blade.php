@@ -1,13 +1,5 @@
 @extends('layouts.app')
 
-@section('css')
-    .card-img-top {
-        width: 100%;
-        height: 15vw;
-        object-fit: cover;
-    }
-@endsection
-
 @section('content')
 
     <div class="card text-center">
@@ -24,7 +16,7 @@
       </div>
     </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+<div class="row row-cols-1 row-cols-md-6 g-4 mt-4">
 
     @foreach($pasteis as $key => $value)
         <div class="col">

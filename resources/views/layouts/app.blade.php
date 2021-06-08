@@ -26,87 +26,11 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
 
         <style type="text/css">
-        @yield('css')
-    </style>
-
-    <style>
-/*    .main-section{
-        background-color: #F8F8F8;
-        margin-top:50px;
-    }*/
-/*    .cart-dropdown{
-        float:right;
-        padding-right: 30px;
-    }*/
-/*    .cart-btn{
-        border:0px;
-        margin:10px 0px;
-        box-shadow:none !important; 
-    }*/
-/*    .cart-dropdown .cart-dropdown-menu{
-        padding:20px !important;;
-        top:30px !important;
-        width:150px !important;
-        left:-110px !important;
-        box-shadow:0px 5px 30px black !important;;
-    }*/
-    /*.total-header-section{
-        border-bottom:1px solid #d2d2d2;
-    }*/
-    .total-section p{
-        margin-top:5px;
-        margin-bottom:5px;
-    }
-    .cart-detail{
-        padding:10px 0px;
-    }
-    .cart-detail-img img{
-        width:100%;
-        height:100%;
-        padding-left:15px;
-    }
-   .cart-detail-product p{
-        margin:0px;
-        color:#000;
-        font-weight:500;
-    }
-    .cart-detail .price{
-        font-size:12px;
-        margin-right:10px;
-        font-weight:500;
-        text-align: left;
-    }
-    .cart-detail .count{
-        color:#C2C2DC;
-        padding-right:0px;
-    }
-    .checkout{
-        /*border-top:1px solid #d2d2d2;   */
-        /*padding-top: 5px;*/
-    }
-    .checkout .btn-primary{
-        border-radius:50px;
-        height:50px;
-    }
-/*    .cart-dropdown-menu:before{
-      content: " ";
-      position:absolute;
-      top:-20px;
-      right:50px;
-      border:10px solid transparent;
-      border-bottom-color:#fff; 
-    }
-*/   .size-dropdown-menu {
-        width:300px !important;
-    }
-    .cart-row-align-padding {
-        padding-top: 15px;
-        padding-left: 15px;
-    }
-</style>
+            @yield('css')
+        </style>
 
 </head>
 
@@ -158,41 +82,6 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <!-- Cart Dropdown-toggle -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarCartDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -216,119 +105,67 @@
                             <ul class="dropdown-menu size-dropdown-menu" aria-labelledby="navbarCartDropdown">
 
                                 <!-- CONTENT HEADER -->
-                                <div class="row cart-row-align-padding">
-                                    <div class="col">
-                                        <svg width="35" height="30">
-                                            <polyline fill="none" points="2 1.7 5.5 1.7 9.6 18.3 21.2 18.3 24.6 6.1 7 6.1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5" style="stroke:black"></polyline>
-                                            <circle cx="10.7" cy="23" r="2.2" stroke="none" fill="black"></circle>
-                                            <circle cx="19.7" cy="23" r="2.2" stroke="none" fill="black"></circle>
-                                            <circle cx="24" cy="8" r="8" stroke="none" fill="orange"></circle>
-                                            <text x="20" y="13" fill="black">
-                                                @php 
-                                                if (session()->has('cart')) 
-                                                    echo count(session()->get('cart'));
-                                                else
-                                                    echo 0;
-                                                @endphp
-                                            </text>
-                                        </svg>
+                                @if(session()->has('cart') && count(session()->get('cart')) >0)
+                                    <div class="row cart-row-align-padding">
+                                        <div class="col">
+                                            <svg width="35" height="30">
+                                                <polyline fill="none" points="2 1.7 5.5 1.7 9.6 18.3 21.2 18.3 24.6 6.1 7 6.1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5" style="stroke:black"></polyline>
+                                                <circle cx="10.7" cy="23" r="2.2" stroke="none" fill="black"></circle>
+                                                <circle cx="19.7" cy="23" r="2.2" stroke="none" fill="black"></circle>
+                                                <circle cx="24" cy="8" r="8" stroke="none" fill="orange"></circle>
+                                                <text x="20" y="13" fill="black">{{count(session()->get('cart'))}}</text>
+                                            </svg>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
+                                            @php
+                                            $cart = session()->get('cart');
+                                            $cartValue = 0;
+                                            foreach ($cart as $item){
+                                                $cartValue+=$item['price']*$item['qnt'];
+                                            }
+                                            echo "<p>Total: <span class=\"text-info\">R\$".number_format($cartValue,2)."</span></p>";
+                                            @endphp
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <!-- CONTENT ITENS -->
+                                    @php $cart = session()->get('cart'); @endphp
+
+                                    @foreach ($cart as $item)
+                                        <div class="row cart-detail">
+                                            <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                                                <img src="{{ $item['href'] }}">
+                                            </div>
+                                            <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                                                <p> {{ $item['title'] }} </p>
+                                                <div class='row'>
+                                                    <span class="col price text-info"> R$ {{number_format($item['price']*$item['qnt'],2)}} </span> 
+                                                    <span class=" col count"> Qnt.: {{$item['qnt']}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                    <!-- CHECKOUT BUTTON-->
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col text-center checkout">
+                                            <a href="{{route('carrinho.index')}}" class="btn btn-primary btn-lg active btn-block" role="button" aria-pressed="true">Prosseguir</a>
+                                            {{-- <button class="btn btn-primary btn-block"  href="{{route('carrinho.index')}}">Prosseguir</button> --}}
+                                        </div>
                                     </div>
 
-                                    <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
-                                        <p>Total: <span class="text-info">$2,978.24</span></p>
-                                    </div>
-                                </div>
-                                <hr>
+                                @else
 
-                                <!-- CONTENT ITENS -->
-                                <div class="row cart-detail">
-                                    <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                                        <img src="/images/pasteis/calabresa.jpg">
-                                    </div>
-                                    <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                                        <p>Pastel de calabresa</p>
-                                        <span class="price text-info"> R$100.22</span> <span class="count"> Qnt.: 01</span>
-                                    </div>
-                                </div>
-                                <div class="row cart-detail">
-                                    <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                                        <img src="/images/pasteis/carne_seca.jpg">
-                                    </div>
-                                    <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                                        <p>Pastel de carne seca</p>
-                                        <span class="price text-info"> R$50.40</span> <span class="count"> Qnt.: 01</span>
-                                    </div>
-                                </div>
-                                <div class="row cart-detail">
-                                    <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                                        <img src="/images/pasteis/nutella.jpg">
-                                    </div>
-                                    <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                                        <p>Pastel de Nutella</p>
-                                        <span class="price text-info"> R$10.00</span> <span class="count"> Qnt.: 01</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
                                     <div class="col text-center checkout">
-                                        <button class="btn btn-primary btn-block">Checkout</button>
+                                        <p>Carrinho vazio</p>
                                     </div>
-                                </div>
+
+                                @endif
                             </ul>
                         </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                         <!-- Authentication Links -->
                         @guest
@@ -360,13 +197,13 @@
                     </li>
                     @endguest
                 </ul>
-        </div> <!-- END CONTAINER -->
-    </nav> <!-- END NAVBAR -->
-</div> <!-- END DIV APP -->
+            </div> <!-- END CONTAINER -->
+        </nav> <!-- END NAVBAR -->
+    </div> <!-- END DIV APP -->
 
-<main class="py-4 container">
-    @yield('content')
-</main>
+    <main class="py-4 container">
+        @yield('content')
+    </main>
 </div>
 
 @yield('scripts')
