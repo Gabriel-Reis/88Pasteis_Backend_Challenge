@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Status_pedido extends Model
 {
     use HasFactory;
-    protected $table = 'status_pedido';
+    
 }
