@@ -18,9 +18,14 @@ class SessionController extends Controller
         \Session::put('cart', $request->all());
         // echo "session created";
     }
+    
     public function getsession()
     {
-        return(session()->get('cart'));
-        // return "teste";
+        return(session()->get('cart',[]));
+    }
+    
+    public function clearsession()
+    {
+        return(session()->pull('cart',[]));
     }
 }
