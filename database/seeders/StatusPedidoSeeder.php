@@ -20,7 +20,7 @@ class StatusPedidoSeeder extends Seeder
                 'descricao' => 'Aguardando confirmação'
             ],
             [
-            'descricao' => 'Em produção'
+                'descricao' => 'Em produção'
             ],
             [
                 'descricao' => 'Em rota de entrega'

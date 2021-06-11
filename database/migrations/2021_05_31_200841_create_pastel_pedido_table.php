@@ -15,7 +15,7 @@ class CreatePastelPedidoTable extends Migration
     {
         Schema::create('pastel_pedido', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('Quantidade');
+            $table->unsignedInteger('quantidade');
             $table->timestamps();
             //KF
             $table->foreignId('pedido_id')->unsigned()->index();
