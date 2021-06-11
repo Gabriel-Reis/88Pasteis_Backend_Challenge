@@ -1,3 +1,7 @@
+
+// ***************************************************************************************************************************************//
+//                                                                  BOTÕES +/-
+// ***************************************************************************************************************************************//
 // +- CART BUTTONS
 function wcqib_refresh_quantity_increments() {
     jQuery("div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)").each(function(a, b) {
@@ -34,17 +38,11 @@ String.prototype.getDecimals || (String.prototype.getDecimals = function() {
 });
 
 
-//TEXT MASKS
-$(document).ready(function($){
-    $('#date').mask('00/00/0000');
-    $('#cep').mask('00000-000');
-    $('#telefone').mask('(00) 0000-00000');
-    $('#cpf').mask('000.000.000-00', {reverse: true});
-});
-
-    
-//Edit price total
-$(".plus").click(function() {
+// ***************************************************************************************************************************************//
+//                                                          PÁGINA EDITAR CARRINHO (INDEX)
+// ***************************************************************************************************************************************//
+//Edit price total on cart edit
+$(".cart_review_plus").click(function() {
     var $item = $(this).closest("tr").find("#price");
     var $item_total = $(this).closest("table").find("#price_total");
     var $atual = parseFloat($(this).closest("tr").find("#price").text());
@@ -53,10 +51,9 @@ $(".plus").click(function() {
     var $id = parseFloat($(this).closest("tr").find("#ID").val());
     $text = ""+((($atual/$qnt)*($qnt+1)).toFixed(2));
     $text_total = ""+((parseFloat($item_total.text())+($atual/$qnt)).toFixed(2));
-    ChangeCart(parseInt(1),$id,$item,$text,$text_total,$item_total);
+    ChangeCart_Review(parseInt(1),$id,$item,$text,$text_total,$item_total);
 });
-
-$(".minus").click(function() {
+$(".cart_review_minus").click(function() {
     var $item = $(this).closest("tr").find("#price");
     var $item_total = $(this).closest("table").find("#price_total");
     var $atual = parseFloat($(this).closest("tr").find("#price").text());
@@ -66,13 +63,12 @@ $(".minus").click(function() {
     if($qnt !== 1.00){ //impede chegar 0,00, pois não remove item em 0
         $text = ""+((($atual/$qnt)*($qnt-1)).toFixed(2));
         $text_total = ""+((parseFloat($item_total.text())-($atual/$qnt)).toFixed(2));
-        ChangeCart(parseInt(-1),$id,$item,$text,$text_total,$item_total);
+        ChangeCart_Review(parseInt(-1),$id,$item,$text,$text_total,$item_total);
     }
 });
 
-
 //add ou remove, quantidade, idItem
-function ChangeCart($qnt,$id,$item,$text,$text_total,$item_total){
+function ChangeCart_Review($qnt,$id,$item,$text,$text_total,$item_total){
     //Inserir item
     var $info = {};
     $.ajax({
@@ -85,12 +81,12 @@ function ChangeCart($qnt,$id,$item,$text,$text_total,$item_total){
             if(item.id == $id)
                 item.qnt = parseInt(item.qnt) + parseInt($qnt);
         });
-        SendCart($info,$item,$text,$text_total,$item_total);
+        SendCart_Review($info,$item,$text,$text_total,$item_total);
     });
     return $info;
 }
 
-function SendCart($data,$item,$text,$text_total,$item_total){
+function SendCart_Review($data,$item,$text,$text_total,$item_total){
     var arrayToString = JSON.stringify(Object.assign({}, $data));  // convert array to string
     var stringToJsonObject = JSON.parse(arrayToString);  // convert string to json object
 
@@ -107,7 +103,88 @@ function SendCart($data,$item,$text,$text_total,$item_total){
     });
 }
 
+// ***************************************************************************************************************************************//
+//                                                           PÁGINA CARDAPIO
+// ***************************************************************************************************************************************//
 
+//Edit price total on cart edit
+$(".cart_edit_plus").click(function() {
+    var $id = parseFloat($(this).closest("div").find("#ID").val());
+    var $qnt = parseFloat($(this).closest("div").find("#qnt").val())+1;
+    var $img = $(this).closest(".card").find("#img").attr('src'); //foto ok
+    var $price = parseFloat($(this).closest(".card").find("#price").text().replace("R$", "")); 
+    var $title = $(this).closest(".card").find("#title").text();
+    
+    ChangeCart_Edit($qnt,$id,$img,$price,$title);
+});
+
+$(".cart_edit_minus").click(function() {
+    var $qnt = parseFloat($(this).closest("div").find("#qnt").val())-1;
+    var $id = parseFloat($(this).closest("div").find("#ID").val());
+    var $img = $(this).closest(".card").find("#img").attr('src'); //foto ok
+    var $price = parseFloat($(this).closest(".card").find("#price").text().replace("R$", "")); 
+    var $title = $(this).closest(".card").find("#title").text();
+    ChangeCart_Edit($qnt,$id,$img,$price,$title);    
+});
+
+//add ou remove, quantidade, idItem
+function ChangeCart_Edit($qnt,$id,$img,$price,$title){
+    var $info = {};
+    $.ajax({
+        type: 'GET',
+        url: '/get_session',
+        dataType: "json",
+    }).done(function(data){
+        $info = data;
+        $found = -1;
+        $key = -1;
+        $info.forEach(function(item){
+            if(item.id == $id){
+                $key++;
+                item.qnt = parseInt($qnt);
+                $found = 1; //Achou item
+            }
+        });
+        
+        //Remove caso item seja zerado
+        if($qnt <= 0)
+            $info.splice($key,1);
+        else if($qnt == 1 || $key == -1) //Adiciona novo item
+            $info.push({'id':$id,'qnt':$qnt,'href':$img,'price':$price,'title':$title});
+
+        SendCart_Edit($info,$qnt);
+    }).fail(function(data){
+        if(data.length == 0)
+            console.log(data);
+    });
+    return $info;
+}
+
+function SendCart_Edit($data,$qnt){
+    var arrayToString = JSON.stringify(Object.assign({}, $data));  // convert array to string
+    var stringToJsonObject = JSON.parse(arrayToString);  // convert string to json object
+
+    $.ajax({
+        type: 'POST',
+        url: '/set_session',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: stringToJsonObject
+    }).done(function(){});
+}
+
+// ***************************************************************************************************************************************//
+//                                                                 GERAL
+// ***************************************************************************************************************************************//
+
+//TEXT MASKS
+$(document).ready(function($){
+    $('#date').mask('00/00/0000');
+    $('#cep').mask('00000-000');
+    $('#telefone').mask('(00) 0000-00000');
+    $('#cpf').mask('000.000.000-00', {reverse: true});
+});
 $(document).on({
     ajaxStart: function(){
         $('table').addClass("loading"); 
@@ -117,8 +194,7 @@ $(document).on({
     }    
 });
 
-
-// Price Update on "pedidos page"
+//Atualiza valor total
 function PriceUpdate($price, $id, $cupons){
     if($id == 0)
         document.getElementById("total").value = parseFloat($price).toFixed(2);
@@ -127,7 +203,3 @@ function PriceUpdate($price, $id, $cupons){
     else
         document.getElementById("total").value = parseFloat($price-$cupons[$id-1].desconto).toFixed(2);
 }
-
-
-total - 3%
-total * 0,97
