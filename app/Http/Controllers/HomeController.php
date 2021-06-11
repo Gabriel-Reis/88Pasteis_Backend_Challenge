@@ -32,21 +32,21 @@ class HomeController extends Controller
     public function welcome()
     {
         //Inicial
-        session()->put('cart', [
-            [   'id' => 1,
-                'qnt' => 2,
-                'href' => '/images/pasteis/queijo.jpg',
-                'price' => '8',
-                'title' => 'Pastel de queijo',
-            ],
-            [ 
-                'id' => 2,
-                'qnt' => 1,
-                'href' => '/images/pasteis/calabresa.jpg',
-                'price' => '7',
-                'title' => 'Pastel de calabresa',
-            ],
-        ]);
+        // session()->put('cart', [
+        //     [   'id' => 1,
+        //         'qnt' => 2,
+        //         'href' => '/images/pasteis/queijo.jpg',
+        //         'price' => '8',
+        //         'title' => 'Pastel de queijo',
+        //     ],
+        //     [ 
+        //         'id' => 2,
+        //         'qnt' => 1,
+        //         'href' => '/images/pasteis/calabresa.jpg',
+        //         'price' => '7',
+        //         'title' => 'Pastel de calabresa',
+        //     ],
+        // ]);
 
         // //Inserir item
         // $cart = session()->get('cart');

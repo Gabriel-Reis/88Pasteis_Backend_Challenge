@@ -15,10 +15,12 @@
 				<div class="card-body">
 					<form method="POST" action="{{ route('pedidos.store') }}">
 						@csrf
+						
 						{{-- USER ID --}}
-						<input id="user_id" type="hidden" class="form-control" value="{{Auth::user()->id}}" required utofocus>
+						<input name="user_id" id="user_id" type="hidden" class="form-control" value="{{Auth::id()}}" required utofocus>
+						
 						{{-- status_pedido_id --}}
-						<input id="status_pedido_id" type="hidden" class="form-control" value="1" required utofocus>
+						<input name="status_pedido_id" id="status_pedido_id" type="hidden" class="form-control" value="1" required utofocus>
 
 
 						{{-- USER NAME (FOR VIEW ONLY) --}}
@@ -31,26 +33,12 @@
 						<br>
 
 
-						{{-- Total --}}
-						@foreach ($cart as $item)
-							@php $cartValue+=$item['price']*$item['qnt']; @endphp
-						@endforeach
-						<div class="form-group row">
-							<label for="total" class="col-md-4 col-form-label text-md-right">Total</label>
-
-							<div class="col-md-6">
-								<input id="total" type="number" class="form-control" name="name" value="{{number_format($cartValue,2)}}" required disabled="true">
-							</div>
-						</div>
-						<br>
-
-
 						{{-- cpf --}}
 						<div class="form-group row">
                             <label for="cpf" class="col-md-4 col-form-label text-md-right">CPF</label>
 
                             <div class="col-md-6">
-                                <input id="cpf" type="text" class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" required autocomplete="cpf" placeholder="Ex.: 123.456.789-10">
+                                <input name="cpf" id="cpf" type="text" class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" autocomplete="cpf" placeholder="Ex.: 123.456.789-10">
 
                                 @error('cpf')
                                     <span class="invalid-feedback" role="alert">
@@ -67,7 +55,7 @@
                             <label for="obs" class="col-md-4 col-form-label text-md-right">Observações</label>
 
                             <div class="col-md-6">
-                            	<textarea id="obs" name="obs" rows="4" cols="50"  class="form-control @error('obs') is-invalid @enderror" name="obs" value="{{ old('obs')}}" placeholder="Ex.: Pastel de calabresa sem cebola"></textarea>
+                            	<textarea name="obs" id="obs" name="obs" rows="4" cols="50"  class="form-control @error('obs') is-invalid @enderror" name="obs" value="{{ old('obs')}}" placeholder="Ex.: Pastel de calabresa sem cebola"></textarea>
 
                                 @error('obs')
                                     <span class="invalid-feedback" role="alert">
@@ -83,7 +71,7 @@
                             <label for="forma_pag_id" class="col-md-4 col-form-label text-md-right">Forma de pagamento</label>
 
                             <div class="col-md-6">
-                            	<select id="forma_pag_id" class="form-select" name="forma_pag_id">
+                            	<select name="forma_pag_id" id="forma_pag_id" class="form-select" name="forma_pag_id">
 									@foreach ($pagamentos as $item)
 										@php echo "<option value=".$item['id'].">".$item['descricao']."</option>"; @endphp
 									@endforeach
@@ -93,13 +81,17 @@
                         </div>
 						<br>
 
+						{{-- cart_value update --}}
+						@foreach ($cart as $item)
+							@php $cartValue+=$item['price']*$item['qnt']; @endphp
+						@endforeach
 
 						{{-- cupom_id --}}
 						<div class="form-group row">
                             <label for="cupom_id" class="col-md-4 col-form-label text-md-right">Cupom de desconto</label>
 
                             <div class="col-md-6">
-                            	<select onchange="PriceUpdate({{$cartValue}}, this.value, {{$cupons}})" id="cupom_id" class="form-select" name="forma_pag_id">
+                            	<select name="cupom_id" onchange="PriceUpdate({{$cartValue}}, this.value, {{$cupons}})" id="cupom_id" class="form-select" name="forma_pag_id">
 									<option value="0" selected="true">Escolha um cupom</option>
 									@foreach ($cupons as $item)
 										@php 
@@ -114,16 +106,37 @@
                         </div>
 						<br>
 
+
+						{{-- Total --}}
+						<div class="form-group row">
+							<label for="total_geral" class="col-md-4 col-form-label text-md-right">Total</label>
+
+							<div class="col-md-6">
+								<input name="total_geral" id="total_geral" readonly="readonly" type="number" class="form-control" value="{{number_format($cartValue,2)}}" required >
+							</div>
+						</div>
+						<br>
+						{{-- Total_desconto --}}
+						<div class="form-group row">
+							<label for="total" class="col-md-4 col-form-label text-md-right">Total com desconto</label>
+
+							<div class="col-md-6">
+								<input name="total" id="total" readonly="readonly" type="number" class="form-control" value="{{number_format($cartValue,2)}}" required >
+							</div>
+						</div>
+						<br>
+
+						<div class="form-group row container">
+							<input class="btn btn-success" type="submit" value="Realizar pedido">
+							{{-- <a style="float: right;" type="submit" class="btn btn-primary btn-lg active btn-block" role="button" aria-pressed="true">Realizar pedido</a> --}}
+                        </div>
+
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-<h1> CUPOM PARA PRIMEIRO(s) PEDIDO (SEED + PHP)</h1>
-<h1> MOSTRAR VALOR DO DECONTO NO FIM E PADRÃO EM CIMA </h1>
 
 @endif
 @endsection

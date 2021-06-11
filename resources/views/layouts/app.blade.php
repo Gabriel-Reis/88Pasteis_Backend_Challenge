@@ -50,10 +50,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('pasteis.index') }}">Cardápio</a>
                         </li>
+                        @guest
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Link </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
@@ -184,22 +184,33 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> {{ Auth::user()->name }} </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item" href="{{route('pedidos.index')}}">Meus pedidos</a></li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </ul>
-                    </li>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </ul>
+                        </li>
                     @endguest
                 </ul>
             </div> <!-- END CONTAINER -->
         </nav> <!-- END NAVBAR -->
     </div> <!-- END DIV APP -->
+
+    @if (\Session::has('success'))
+        <div class="alert alert-success conteiner">
+            {!! \Session::get('success') !!}
+        </div>
+    @endif
+    @if (\Session::has('fail'))
+        <div class="alert alert-danger conteiner">
+            {!! \Session::get('fail') !!}
+        </div>
+    @endif
 
     <main class="py-4 container">
         @yield('content')

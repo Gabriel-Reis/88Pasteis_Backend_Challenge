@@ -44,7 +44,7 @@
 						</td>
 						<td valign="middle"> 
 							<div class="quantity buttons_added">	
-								<input type="button" value="-" class="minus"><input type="number" id="qnt" step="1" min="1" max="" name="quantity" value="{{$item['qnt']}}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+								<input type="button" value="-" class="minus cart_review_minus"><input type="number" id="qnt" step="1" min="1" max="" name="quantity" value="{{$item['qnt']}}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus cart_review_plus">
 							</div>
 						</td>
 						<td valign="middle"> 
@@ -64,6 +64,7 @@
 
 			</tbody>
 		</table>
+
 		<div class="container">
 			<a style="float: right;" href="{{route('pedidos.create')}}" class="btn btn-primary btn-lg active btn-block" role="button" aria-pressed="true">Confirmar e finalizar pedido</a>
 		</div>

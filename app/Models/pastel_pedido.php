@@ -9,4 +9,12 @@ class Pastel_pedido extends Model
 {
     use HasFactory;
     protected $table = 'pastel_pedido';
+
+     protected $fillable = [
+        'quantidade',
+        'pastel_id',
+        'pedido_id',
+    ];
+
+    
 }
