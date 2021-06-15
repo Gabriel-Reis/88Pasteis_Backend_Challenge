@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pastel;
-use App\Models\Bebida;
 use DB;
 
 class HomeController extends Controller
@@ -32,7 +31,6 @@ class HomeController extends Controller
     public function welcome()
     {
         $pasteis = DB::table('pasteis')->get();
-        $bebidas = Bebida::all();
-        return view('welcome')->with('pasteis', $pasteis)->with('bebidas', $bebidas);
+        return view('welcome')->with('pasteis', $pasteis);
     }
 }

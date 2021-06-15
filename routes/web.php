@@ -2,8 +2,6 @@
 use App\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarrinhoController;
-use App\Http\Controllers\BebidaController;
-use App\Http\Controllers\BebidaPedidoController;
 use App\Http\Controllers\CupomController;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\PastelController;
@@ -35,8 +33,6 @@ Route::get('email_NewOrder',function(){
 });
 
 Route::resource('carrinho', CarrinhoController::class);
-Route::resource('bebidas', BebidaController::class);
-Route::resource('bebida_pedido', BebidaPedidoController::class);
 Route::resource('cupons', CupomController::class);
 Route::resource('pagamentos', PagamentoController::class);
 Route::resource('pasteis', PastelController::class);

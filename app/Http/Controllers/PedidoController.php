@@ -7,7 +7,6 @@ use App\Models\Pastel_pedido;
 use App\Models\Status_pedido;
 use App\Models\Pagamento;
 use App\Models\Pastel;
-use App\Models\Bebida;
 use App\Models\Cupom;
 use DB;
 use Auth;
@@ -33,7 +32,6 @@ class PedidoController extends Controller
     public function index()
     {
         // $pasteis = Pastel::all();
-        // $bebidas = Bebida::all();
         // \Log::info("5");
         $pedidos = Pedido::where('user_id', 1)->get();
         $pastel_pedido = Pastel_pedido::all();
@@ -52,10 +50,9 @@ class PedidoController extends Controller
     {
         // $pasteis = DB::table('pasteis')->get();
         $pasteis = Pastel::all();
-        $bebidas = Bebida::all();
         $cupons = Cupom::all();
         $pagamentos = Pagamento::all();
-        return view('sections.pedido.create')->with('pasteis', $pasteis)->with('bebidas', $bebidas)->with('cupons', $cupons)->with('pagamentos', $pagamentos);
+        return view('sections.pedido.create')->with('pasteis', $pasteis)->with('cupons', $cupons)->with('pagamentos', $pagamentos);
     }
 
     /**

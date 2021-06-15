@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pastel;
-use App\Models\Bebida;
 use DB;
 
 class CarrinhoController extends Controller
@@ -16,8 +15,7 @@ class CarrinhoController extends Controller
     public function index()
     {
         $pasteis = DB::table('pasteis')->get();
-        $bebidas = Bebida::all();
-        return view('sections.carrinho.index')->with('pasteis', $pasteis)->with('bebidas', $bebidas); 
+        return view('sections.carrinho.index')->with('pasteis', $pasteis); 
         // $request->session()->put('cart', [
         //     [   'id' => 1,
         //         'qnt' => 2

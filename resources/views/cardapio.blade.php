@@ -53,7 +53,5 @@
         </div>
     @endforeach
 </div>
-{{-- </div> --}}
-    {{-- exibir outros e bebidas --}}
 
 @endsection
