@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PagamentoSeeder::class);
         $this->call(StatusPedidoSeeder::class);
         $this->call(PastelSeeder::class);
-        $this->call(PastelPedidoSeeder::class); //TODO
-        $this->call(PedidoSeeder::class); //TODO
+        $this->call(PedidoSeeder::class);
+        $this->call(PastelPedidoSeeder::class);
     }
 }
