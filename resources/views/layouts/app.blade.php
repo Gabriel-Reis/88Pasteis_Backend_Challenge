@@ -31,7 +31,6 @@
         <style type="text/css">
             @yield('css')
         </style>
-
 </head>
 
 <body>
@@ -54,28 +53,31 @@
                             <a class="nav-link" href="{{ route('pasteis.index') }}">Cardápio</a>
                         </li>
                         @guest
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Link </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Link </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
                         @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">TESTELOGIN</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Link </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+                            {{-- Somente aparece para admin (2) e funcionário (1) --}}
+                            @if(auth()->user()->tipo >= 1) 
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">TESTELOGIN</a>
+                                </li>
+                            @endif
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Link </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
                         @endguest
                     </ul>
 
@@ -148,12 +150,15 @@
                                         $cart = [];
                                 @endphp
 
+                                <div id="cart_dropdown_empty" class="text-center"
+                                    @if(session()->has('cart') && count(session()->get('cart')) > 0) 
+                                        style="display: none;"
+                                    @endif
+                                    >
+                                    <p>Carrinho vazio</p>
+                                </div>
                                 <div id="cart_pasteis">
-                                    @if(count($cart) <= 0)
-                                        <div id="cart_dropdown_empty" class="col text-center checkout">
-                                            <p>Carrinho vazio</p>
-                                        </div>
-                                    @else
+                                    {{-- @else --}}
                                         @foreach ($cart as $item)
                                             <div class="row cart-detail">
                                                 <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
@@ -168,11 +173,12 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                    @endif
+                                    {{-- @endif --}}
                                 </div>
 
                                 <!-- CHECKOUT BUTTON-->
-                                @if(session()->has('cart') && count(session()->get('cart')) > 0)
+                                {{-- @if(session()->has('cart') && count(session()->get('cart')) > 0) --}}
+                                <div id="cart_dropdown_checkout" @if(!session()->has('cart') || count($cart) <= 0) style="display: none;" @endif >
                                     <hr>
                                     <div class="row">
                                         <div class="col text-center checkout">
@@ -180,7 +186,8 @@
                                             {{-- <button class="btn btn-primary btn-block"  href="{{route('carrinho.index')}}">Prosseguir</button> --}}
                                         </div>
                                     </div>
-                                @endif
+                                </div>
+                                {{-- @endif --}}
                             </ul>
                         </li>
 

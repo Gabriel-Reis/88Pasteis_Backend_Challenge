@@ -26,7 +26,6 @@
 			    	{{-- <td><img src="{{$pagamentos[$pedido->forma_pag_id]['foto']}}" style="max-width: 40px"></td> --}}
 			    	<td>
 			    		<form action="{{ route('pedidos.show', $pedido->id) }}" method="GET">
-                        
                         	<button class="btn btn-primary" type="submit" >Ver</button>
                     	</form>
                     </td>

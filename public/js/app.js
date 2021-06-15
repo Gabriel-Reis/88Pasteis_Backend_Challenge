@@ -192,6 +192,15 @@ function SendCart_Edit($data,$qnt){
         document.getElementById("cart_header_qnt").innerHTML = $data.length;
         document.getElementById("cart_dropdown_qnt").innerHTML = $data.length;
 
+        if ($data.length > 0){
+            document.getElementById("cart_dropdown_checkout").style.display = "block";
+            document.getElementById("cart_dropdown_empty").style.display = "none";
+        }
+        else{
+            document.getElementById("cart_dropdown_checkout").style.display = "none";
+            document.getElementById("cart_dropdown_empty").style.display = "block";
+        }
+
         //Atualiza valor do carrinho no dropdown
         $total = 0;
         $data.forEach(function(item){

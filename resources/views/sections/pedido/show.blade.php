@@ -7,7 +7,7 @@
 	</div>
 
 
-	<table class="table table-bordeless">
+	<table class="table table-bordeless table-hover">
 		<thead>
 			<tr>
 				<th>Pastel</th>
@@ -19,10 +19,10 @@
 		<tbody>
 			@foreach ($pastel_pedido as $pastel)
 				<tr>
-					<td> {{$pasteis[$pastel->id]['titulo']}} </td>
+					<td> {{$pasteis[$pastel->pastel_id-1]['titulo']}} </td>
 					<td> {{$pastel->quantidade}} </td>
-					<td> {{$pasteis[$pastel->id]['preco_unit']}} </td>
-					<td> {{$pasteis[$pastel->id]['preco_unit']*$pastel->quantidade}} </td>
+					<td> {{$pasteis[$pastel->pastel_id-1]['preco_unit']}} </td>
+					<td> {{$pasteis[$pastel->pastel_id-1]['preco_unit']*$pastel->quantidade}} </td>
 					{{-- <img src="{{$pasteis[$pastel->id]['foto']}}" style="width: 400px"> --}}
 				</tr>
 			@endforeach
