@@ -51,7 +51,7 @@ $(".cart_review_plus").click(function() {
     var $id = parseFloat($(this).closest("tr").find("#ID").val());
     $text = ""+((($atual/$qnt)*($qnt+1)).toFixed(2));
     $text_total = ""+((parseFloat($item_total.text())+($atual/$qnt)).toFixed(2));
-    ChangeCart_Review(parseInt(1),$id,$item,$text,$text_total,$item_total);
+    ChangeCart_Review( $qnt+1,$id,$item,$text,$text_total,$item_total);
 });
 $(".cart_review_minus").click(function() {
     var $item = $(this).closest("tr").find("#price");
@@ -63,7 +63,7 @@ $(".cart_review_minus").click(function() {
     if($qnt !== 1.00){ //impede chegar 0,00, pois não remove item em 0
         $text = ""+((($atual/$qnt)*($qnt-1)).toFixed(2));
         $text_total = ""+((parseFloat($item_total.text())-($atual/$qnt)).toFixed(2));
-        ChangeCart_Review(parseInt(-1),$id,$item,$text,$text_total,$item_total);
+        ChangeCart_Review( $qnt-1,$id,$item,$text,$text_total,$item_total);
     }
 });
 
@@ -76,11 +76,24 @@ function ChangeCart_Review($qnt,$id,$item,$text,$text_total,$item_total){
         url: '/get_session',
         dataType: "json",
     }).done(function(data){
+
         $info = data;
+        $found = -1;
+        $key = -1;
         $info.forEach(function(item){
-            if(item.id == $id)
-                item.qnt = parseInt(item.qnt) + parseInt($qnt);
+            if(item.id == $id){
+                $key++;
+                item.qnt = parseInt($qnt);
+                $found = 1; //Achou item
+            }
         });
+        
+        //Remove caso item seja zerado
+        if($qnt <= 0)
+            $info.splice($key,1);
+        else if($qnt == 1 || $key == -1) //Adiciona novo item
+            $info.push({'id':$id,'qnt':$qnt,'href':$img,'price':$price,'title':$title});
+
         SendCart_Review($info,$item,$text,$text_total,$item_total);
     });
     return $info;
@@ -136,26 +149,29 @@ function ChangeCart_Edit($qnt,$id,$img,$price,$title){
         dataType: "json",
     }).done(function(data){
         $info = data;
-        $found = -1;
-        $key = -1;
+        $found = -1;    //Pastel encontrado
+        $aux = -1;      //Auxiliar para posição do pastel no vetor "cart"
+        $key = -1;      //Key a ser editada
         $info.forEach(function(item){
+            $aux++;
             if(item.id == $id){
-                $key++;
                 item.qnt = parseInt($qnt);
                 $found = 1; //Achou item
+                $key = $aux;
             }
         });
         
         //Remove caso item seja zerado
+        console.log($qnt);
         if($qnt <= 0)
             $info.splice($key,1);
-        else if($qnt == 1 || $key == -1) //Adiciona novo item
+        else if($found == -1) //Adiciona novo item
             $info.push({'id':$id,'qnt':$qnt,'href':$img,'price':$price,'title':$title});
 
         SendCart_Edit($info,$qnt);
     }).fail(function(data){
-        if(data.length == 0)
-            console.log(data);
+        // if(data.length == 0)
+            // console.log(data);
     });
     return $info;
 }
@@ -171,7 +187,36 @@ function SendCart_Edit($data,$qnt){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: stringToJsonObject
-    }).done(function(){});
+    }).done(function(){
+        //Atualiza valor do carrinho no header
+        document.getElementById("cart_header_qnt").innerHTML = $data.length;
+        document.getElementById("cart_dropdown_qnt").innerHTML = $data.length;
+
+        //Atualiza valor do carrinho no dropdown
+        $total = 0;
+        $data.forEach(function(item){
+            $total += (item.price * item.qnt);
+        });
+        document.getElementById("cart_dropdown_total").innerHTML = "R\$"+$total.toFixed(2);
+
+        // Atualiza os pasteis no dropdown
+        $info = "";
+        $data.forEach(function(item){
+            $info+="<div class=\"row cart-detail\">";
+                $info+="<div class=\"col-lg-4 col-sm-4 col-4 cart-detail-img\">";
+                    $info+="<img src=\""+item.href+"\">";
+                $info+="</div>";
+                $info+="<div class=\"col-lg-8 col-sm-8 col-8 cart-detail-product\">";
+                    $info+="<p>"+ item.title +"</p>";
+                    $info+="<div class='row'>";
+                        $info+="<span class=\"col price text-info\"> R$ " + (item.price*item.qnt).toFixed(2) +"</span> ";
+                        $info+="<span class=\" col count\"> Qnt.: " + item.qnt +"</span>";
+                    $info+="</div>";
+                $info+="</div>";
+            $info+="</div>";
+        });
+        document.getElementById("cart_pasteis").innerHTML = $info;
+    });
 }
 
 // ***************************************************************************************************************************************//

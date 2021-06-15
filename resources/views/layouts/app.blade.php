@@ -90,7 +90,7 @@
                                     <circle cx="10.7" cy="23" r="2.2" stroke="none" fill="white"></circle>
                                     <circle cx="19.7" cy="23" r="2.2" stroke="none" fill="white"></circle>
                                     <circle cx="24" cy="8" r="8" stroke="none" fill="orange"></circle>
-                                    <text x="20" y="13" fill="black">
+                                    <text id="cart_header_qnt" x="20" y="13" fill="black">
                                         @php 
                                         if (session()->has('cart')) 
                                             echo count(session()->get('cart'));
@@ -104,51 +104,75 @@
                             <!-- Cart Dropdown content -->
                             <ul class="dropdown-menu size-dropdown-menu" aria-labelledby="navbarCartDropdown">
 
+                                {{-- @if(session()->has('cart') && count(session()->get('cart')) >0) --}}
+                                    
                                 <!-- CONTENT HEADER -->
-                                @if(session()->has('cart') && count(session()->get('cart')) >0)
-                                    <div class="row cart-row-align-padding">
-                                        <div class="col">
-                                            <svg width="35" height="30">
-                                                <polyline fill="none" points="2 1.7 5.5 1.7 9.6 18.3 21.2 18.3 24.6 6.1 7 6.1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5" style="stroke:black"></polyline>
-                                                <circle cx="10.7" cy="23" r="2.2" stroke="none" fill="black"></circle>
-                                                <circle cx="19.7" cy="23" r="2.2" stroke="none" fill="black"></circle>
-                                                <circle cx="24" cy="8" r="8" stroke="none" fill="orange"></circle>
-                                                <text x="20" y="13" fill="black">{{count(session()->get('cart'))}}</text>
-                                            </svg>
-                                        </div>
-
-                                        <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
-                                            @php
-                                            $cart = session()->get('cart');
-                                            $cartValue = 0;
-                                            foreach ($cart as $item){
-                                                $cartValue+=$item['price']*$item['qnt'];
-                                            }
-                                            echo "<p>Total: <span class=\"text-info\">R\$".number_format($cartValue,2)."</span></p>";
-                                            @endphp
-                                        </div>
+                                <div class="row cart-row-align-padding">
+                                    <div class="col">
+                                        <svg width="35" height="30">
+                                            <polyline fill="none" points="2 1.7 5.5 1.7 9.6 18.3 21.2 18.3 24.6 6.1 7 6.1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5" style="stroke:black"></polyline>
+                                            <circle cx="10.7" cy="23" r="2.2" stroke="none" fill="black"></circle>
+                                            <circle cx="19.7" cy="23" r="2.2" stroke="none" fill="black"></circle>
+                                            <circle cx="24" cy="8" r="8" stroke="none" fill="orange"></circle>
+                                            <text x="20" id="cart_dropdown_qnt" y="13" fill="black">
+                                                @php 
+                                                    if(session()->has('cart'))
+                                                        echo count(session()->get('cart'));
+                                                    else
+                                                        echo "0";
+                                                @endphp
+                                            </text>
+                                        </svg>
                                     </div>
-                                    <hr>
 
-                                    <!-- CONTENT ITENS -->
-                                    @php $cart = session()->get('cart'); @endphp
+                                    <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
+                                        @php
+                                            $cartValue = 0;
+                                            if(session()->has('cart')){
+                                                $cart = session()->get('cart');
+                                                foreach ($cart as $item){
+                                                    $cartValue+=$item['price']*$item['qnt'];
+                                                }
+                                            }
+                                            echo "<p>Total: <span id=\"cart_dropdown_total\" class=\"text-info\">R\$".number_format($cartValue,2)."</span></p>";
+                                        @endphp
+                                    </div>
+                                </div>
+                                <hr>
 
-                                    @foreach ($cart as $item)
-                                        <div class="row cart-detail">
-                                            <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                                                <img src="{{ $item['href'] }}">
-                                            </div>
-                                            <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                                                <p> {{ $item['title'] }} </p>
-                                                <div class='row'>
-                                                    <span class="col price text-info"> R$ {{number_format($item['price']*$item['qnt'],2)}} </span> 
-                                                    <span class=" col count"> Qnt.: {{$item['qnt']}}</span>
+                                <!-- CONTENT ITENS -->
+                                @php 
+                                    if(session()->has('cart'))
+                                        $cart = session()->get('cart');
+                                    else
+                                        $cart = [];
+                                @endphp
+
+                                <div id="cart_pasteis">
+                                    @if(count($cart) <= 0)
+                                        <div id="cart_dropdown_empty" class="col text-center checkout">
+                                            <p>Carrinho vazio</p>
+                                        </div>
+                                    @else
+                                        @foreach ($cart as $item)
+                                            <div class="row cart-detail">
+                                                <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                                                    <img src="{{ $item['href'] }}">
+                                                </div>
+                                                <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                                                    <p> {{ $item['title'] }} </p>
+                                                    <div class='row'>
+                                                        <span class="col price text-info"> R$ {{number_format($item['price']*$item['qnt'],2)}} </span> 
+                                                        <span class=" col count"> Qnt.: {{$item['qnt']}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @endif
+                                </div>
 
-                                    <!-- CHECKOUT BUTTON-->
+                                <!-- CHECKOUT BUTTON-->
+                                @if(session()->has('cart') && count(session()->get('cart')) > 0)
                                     <hr>
                                     <div class="row">
                                         <div class="col text-center checkout">
@@ -156,13 +180,6 @@
                                             {{-- <button class="btn btn-primary btn-block"  href="{{route('carrinho.index')}}">Prosseguir</button> --}}
                                         </div>
                                     </div>
-
-                                @else
-
-                                    <div class="col text-center checkout">
-                                        <p>Carrinho vazio</p>
-                                    </div>
-
                                 @endif
                             </ul>
                         </li>
