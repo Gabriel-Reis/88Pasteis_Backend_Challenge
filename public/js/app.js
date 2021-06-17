@@ -326,11 +326,18 @@ $(document).ready( function () {
             { "orderDataType": "dom-text", type: 'string' },
             { "orderDataType": "dom-text", type: 'string' },
             { "orderDataType": "dom-text", type: 'string' },
-        ]
+        ],
+        language: {
+            url: 'http://cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json'
+        }
     });
 });
 
 //Generic order
 $(document).ready( function () {
-    $('#DataTable').DataTable();
+    $('#DataTable').DataTable({
+        language: {
+            url: 'http://cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json'
+        }
+    });
 });
