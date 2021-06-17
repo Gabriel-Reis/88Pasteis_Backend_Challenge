@@ -33,13 +33,9 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        // $pasteis = Pastel::all();
-        // \Log::info("5");
-        $pedidos = Pedido::where('user_id', 1)->get();
+        $pedidos = Pedido::where('user_id', auth()->user()->id)->get();
         $pastel_pedido = Pastel_pedido::all();
         $status_pedido = Status_pedido::all();
-        // $cupons = Cupom::all();
-        // $pagamentos = Pagamento::all();
         return view('sections.pedido.index')->with('pedidos', $pedidos)->with('pastel_pedido', $pastel_pedido)->with('status_pedido', $status_pedido);
     }
 

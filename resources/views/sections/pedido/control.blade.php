@@ -33,7 +33,7 @@
 			    			@foreach($status_pedido as $status)
 								<option value={{$status['id']}}
 									@if($status['id'] == $status_pedido[$pedido->status_pedido_id]['id'])
-										selected="selected" 
+										selected
 									@endif>
 								{{$status['descricao']}} </option>
 							@endforeach
