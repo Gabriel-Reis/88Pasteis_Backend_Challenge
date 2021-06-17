@@ -41,10 +41,11 @@ Route::resource('pedidos', PedidoController::class);
 Route::resource('status_pedido', StatusPedidoController::class);
 
 
-
-// Route::get('session_form', function () { return view('ajax_session'); });
+//Edit statusPedido on Order page
+Route::post('pedidos.editStatus', [PedidoController::class, 'updateStats'])->name('pedidos.editStatus');
+//All ordes page (pedidos)
+Route::get('pedidos.control', [PedidoController::class, 'control'])->name('pedidos.control');
+//Session management
 Route::get('get_session', [SessionController::class, 'getsession']);
 Route::get('clearsession', [SessionController::class, 'clearsession']);
 Route::post('set_session', [SessionController::class, 'createsession'] );
-//Página com cardapio
-//Route::get('/cardapio', function () { return view('cardapio'); })->name('cardapio');;//->middleware('verified');

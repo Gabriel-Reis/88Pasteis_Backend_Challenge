@@ -2,12 +2,7 @@
 
 @section('content')
 	
-	<div class="container">
-		
-	</div>
-
-
-	<table class="table table-bordeless table-hover">
+	<table id="DataTable" class="table table-bordeless table-hover">
 		<thead>
 			<tr>
 				<th>Pastel</th>
@@ -21,9 +16,8 @@
 				<tr>
 					<td> {{$pasteis[$pastel->pastel_id-1]['titulo']}} </td>
 					<td> {{$pastel->quantidade}} </td>
-					<td> {{$pasteis[$pastel->pastel_id-1]['preco_unit']}} </td>
-					<td> {{$pasteis[$pastel->pastel_id-1]['preco_unit']*$pastel->quantidade}} </td>
-					{{-- <img src="{{$pasteis[$pastel->id]['foto']}}" style="width: 400px"> --}}
+					<td> R$ {{ number_format($pasteis[$pastel->pastel_id-1]['preco_unit'],2) }}</td>
+					<td> R$ {{ number_format($pasteis[$pastel->pastel_id-1]['preco_unit']*$pastel->quantidade,2) }} </td>
 				</tr>
 			@endforeach
 		</tbody>

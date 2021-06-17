@@ -4,7 +4,7 @@
 	
 	{{-- @php var_dump($pedidos); @endphp --}}
 	
-	<table class="table table-bordeless">
+	<table id="DataTable" class="table table-bordeless">
 		<thead>
 			<tr>
 				<th>Data do pedido</th>
@@ -17,11 +17,11 @@
 			@foreach ($pedidos as $pedido)
 	    			@php 
 			    		$datetime = new DateTime($pedido['created_at']); 
-			    		$data = "".$datetime->format('d/m/Y H:i');
+			    		$data = "".$datetime->format('d/m/Y - H:i');
 			    	@endphp
 			    <tr>
 			    	<td>{{$data}}</td>
-			    	<td>{{$pedido->total}}</td>
+			    	<td>R$ {{$pedido->total}}</td>
 			    	<td>{{$status_pedido[$pedido->status_pedido_id]['descricao']}}</td>
 			    	{{-- <td><img src="{{$pagamentos[$pedido->forma_pag_id]['foto']}}" style="max-width: 40px"></td> --}}
 			    	<td>

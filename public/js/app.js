@@ -257,3 +257,80 @@ function PriceUpdate($price, $id, $cupons){
     else
         document.getElementById("total").value = parseFloat($price-$cupons[$id-1].desconto).toFixed(2);
 }
+
+//Atualiza status do pedido
+function StatusPedidoUpdate($pedido_id, $status_id,$user_id){
+    // $rota = {{route('pedidos.editStatus')}};
+    // console.log($rota);
+    $.ajax({
+        url:"/pedidos.editStatus",  
+        method:"POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },  
+        data:{
+            user_id: $user_id,
+            pedido_id : $pedido_id,
+            status_id: $status_id
+        },                              
+        success: function( data ) {
+            // console.log(data);
+        }
+    });
+}
+
+// ***************************************************************************************************************************************//
+//                                                                 TABLE ORDER
+// ***************************************************************************************************************************************//
+/* Create an array with the values of all the input boxes in a column */
+$.fn.dataTable.ext.order['dom-text'] = function  ( settings, col )
+{
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+        return $('input', td).val();
+    } );
+}
+
+/* Create an array with the values of all the input boxes in a column, parsed as numbers */
+$.fn.dataTable.ext.order['dom-text-numeric'] = function  ( settings, col )
+{
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+        return $('input', td).val() * 1;
+    } );
+}
+
+/* Create an array with the values of all the select options in a column */
+$.fn.dataTable.ext.order['dom-select'] = function  ( settings, col )
+{
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+        return $('select', td).val();
+    } );
+}
+
+/* Create an array with the values of all the checkboxes in a column */
+$.fn.dataTable.ext.order['dom-checkbox'] = function  ( settings, col )
+{
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+        return $('input', td).prop('checked') ? '1' : '0';
+    } );
+}
+
+$(document).ready( function () {
+    $('#Pedidos_all').DataTable({
+        "columns": [
+            { "orderDataType": "dom-text-numeric" },
+            { "orderDataType": "dom-text-numeric" },
+            { "orderDataType": "dom-text", type: 'string' },
+            { "orderDataType": "dom-text-numeric" },
+            { "orderDataType": "dom-select" },
+            { "orderDataType": "dom-text", type: 'string' },
+            { "orderDataType": "dom-text", type: 'string' },
+            { "orderDataType": "dom-text", type: 'string' },
+            { "orderDataType": "dom-text", type: 'string' },
+        ]
+    });
+});
+
+//Generic order
+$(document).ready( function () {
+    $('#DataTable').DataTable();
+});

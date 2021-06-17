@@ -8,6 +8,8 @@ use App\Models\Status_pedido;
 use App\Models\Pagamento;
 use App\Models\Pastel;
 use App\Models\Cupom;
+use App\Models\User;
+use Carbon\Carbon;
 use DB;
 use Auth;
 
@@ -138,6 +140,22 @@ class PedidoController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Pedido  $pedido
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStats(Request $request)
+    {
+        $pedido = Pedido::find($request->pedido_id);
+        $pedido->status_pedido_id = $request->status_id-1;
+        $pedido->updated_by = $request->user_id;
+        $pedido->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+        $pedido->save();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Pedido  $pedido
@@ -146,5 +164,21 @@ class PedidoController extends Controller
     public function destroy(Pedido $pedido)
     {
         //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function control()
+    {
+        $pedidos = Pedido::orderByRaw('YEAR(created_at),MONTH(created_at),DAY(created_at)  asc, status_pedido_id asc')->get(); //Ordena sem horário
+        $pastel_pedido = Pastel_pedido::all();
+        $status_pedido = Status_pedido::all();
+        $cupons = Cupom::all();
+        $pagamentos = Pagamento::all();
+        $users = User::all();
+        return view('sections.pedido.control')->with('pedidos', $pedidos)->with('pastel_pedido', $pastel_pedido)->with('status_pedido', $status_pedido)->with('cupons', $cupons)->with('cupons', $cupons)->with('users',$users);
     }
 }

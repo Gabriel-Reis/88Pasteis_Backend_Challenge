@@ -19,11 +19,16 @@
         {{-- <script src="jquery.maskedinput.js" type="text/javascript"></script> --}}
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" integrity="sha256-u7MY6EG5ass8JhTuxBek18r5YG6pllB9zLqE4vZyTn4=" crossorigin="anonymous"></script>
-        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script> --}}
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        
+
+        <!-- Loading DataTable -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
@@ -65,8 +70,14 @@
                         @else
                             {{-- Somente aparece para admin (2) e funcionário (1) --}}
                             @if(auth()->user()->tipo >= 1) 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">TESTELOGIN</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Administrativo </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                        <li><a class="dropdown-item" href="{{ route('pedidos.control') }}">Gerenciar pedidos</a></li>
+                                        {{-- <li><a class="dropdown-item" href="#">Another action</a></li> --}}
+                                        {{-- <li><hr class="dropdown-divider"></li> --}}
+                                        {{-- <li><a class="dropdown-item" href="#">Something else here</a></li> --}}
+                                    </ul>
                                 </li>
                             @endif
                             <li class="nav-item dropdown">
