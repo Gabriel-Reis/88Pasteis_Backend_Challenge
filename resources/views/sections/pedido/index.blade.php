@@ -4,13 +4,17 @@
 	
 	{{-- @php var_dump($pedidos); @endphp --}}
 	
-	<table id="DataTable" class="table table-bordeless">
+	<table id="DataTable" class="table table-bordeless align">
 		<thead>
 			<tr>
 				<th>Data do pedido</th>
 				<th>Valor pago</th>
 				<th>Status atual</th>
 				<th>Ver pedido</th>
+				@if(auth()->user()->tipo >= 1)
+					<th>Editar pedido</th>
+					<th>Excluir pedido</th>
+				@endif
 			</tr>
 		</thead>
 		<tbody>
@@ -29,6 +33,18 @@
                         	<button class="btn btn-primary" type="submit" >Ver</button>
                     	</form>
                     </td>
+                    @if(auth()->user()->tipo >= 1)
+						<td>
+				    		<form action="{{ route('pedidos.edit', $pedido->id) }}" method="GET">
+	                        	<button class="btn btn-warning" type="submit" >Editar</button>
+	                    	</form>
+	                    </td>
+	                    <td>
+				    		<form action="{{ route('pedidos.destroy', $pedido->id) }}" method="GET">
+	                        	<button class="btn btn-danger" type="submit" >Excluir</button>
+	                    	</form>
+                    	</td>
+					@endif
 			    </tr>
 			@endforeach
 

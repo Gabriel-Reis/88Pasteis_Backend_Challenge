@@ -2,7 +2,7 @@
 
 @section('content')
 	
-	<table id="DataTable" class="table table-bordeless table-hover">
+	<table id="DataTable" class="table table-bordeless table-hover align">
 		<thead>
 			<tr>
 				<th>Pastel</th>

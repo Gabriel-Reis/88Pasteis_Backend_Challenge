@@ -228,6 +228,67 @@ function SendCart_Edit($data,$qnt){
     });
 }
 
+
+
+// ***************************************************************************************************************************************//
+//                                                           EDITAR PEDIDO
+// ***************************************************************************************************************************************//
+
+$(".order_edit_plus").click(function() {
+    //Recupera quantidade e preco unitario
+    var $qnt = parseFloat($(this).closest("tr").find("#qnt").val())+1;
+    var $price_unit = parseFloat($(this).closest("tr").find("#unit").text().replace("R$", ""));
+    //Atualiza valor da linha
+    $(this).closest("tr").find("#price").text("R$ "+($qnt*$price_unit).toFixed(2));
+    
+    //Atualiza total
+    var $total = parseFloat($(this).closest("table").find("#total").text().replace("R$", ""));
+    $(this).closest("table").find("#total").text("R$ "+($total+$price_unit).toFixed(2));
+});
+
+$(".order_edit_minus").click(function() {
+    var $qnt = parseFloat($(this).closest("tr").find("#qnt").val())-1;
+    if($qnt >= 0){
+        var $price_unit = parseFloat($(this).closest("tr").find("#unit").text().replace("R$", ""));
+        $(this).closest("tr").find("#price").text("R$ "+($qnt*$price_unit).toFixed(2));
+        var $total = parseFloat($(this).closest("table").find("#total").text().replace("R$", ""));
+        $(this).closest("table").find("#total").text("R$ "+($total-$price_unit).toFixed(2));
+    }
+    else{
+        var $price_unit = parseFloat($(this).closest("tr").find("#unit").text().replace("R$", ""));
+        $(this).closest("tr").find("#price").text("R$ "+(0).toFixed(2));
+    }
+});
+
+function InsertRow_pedidoEdit($pasteis){
+    var $id = document.getElementById("add_new").selectedIndex-1;
+    var $button = "<div class='quantity buttons_added'><input type='button' value='-'' class='minus order_edit_minus'><input type='number' id='qnt' step='1' min='0' max='' name='quantity' value='1' title='Qty' class='input-text qty text' size='4' pattern='' inputmode=''><input type='button' value='+' class='plus order_edit_plus'></div>";
+    var myHtmlContent = "<td>"+$pasteis[$id]['titulo']+"</td><td>"+$button+"</td><td>R\$ "+$pasteis[$id]['preco_unit']+"</td><td>R$ "+$pasteis[$id]['preco_unit']+"</td>"
+    var table = document.getElementById("DataTable").getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow(table.rows.length);
+    newRow.innerHTML = myHtmlContent;
+}
+
+function InsertRow_pedidoEdit2($route,$pedido){
+    var $id = document.getElementById("add_new").value;
+    $.ajax({
+        url:$route,  
+        method:"POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },  
+        data:{
+            pedido_id: $pedido,
+            pastel_id: $id,
+        },                              
+        success: function( data ) {
+            document.location.reload(true);
+        }
+    });
+}
+
+
+
 // ***************************************************************************************************************************************//
 //                                                                 GERAL
 // ***************************************************************************************************************************************//

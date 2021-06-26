@@ -92,11 +92,19 @@
     cursor:pointer;
 }
 
-.quantity.buttons_added .cart_edit_minus {
+.quantity.buttons_added .cart_edit_minus{
     border-right: 0; 
 }
 
-.quantity.buttons_added .cart_edit_plus {
+.quantity.buttons_added .order_edit_minus{
+    border-right: 0; 
+}
+
+.quantity.buttons_added .cart_edit_plus{
+    border-left: 0; 
+}
+
+.quantity.buttons_added .order_edit_plus{
     border-left: 0; 
 }
 
@@ -131,4 +139,9 @@ table.loading {
     z-index: 999;
     /*position: absolute;*/
     opacity: .3;
+}
+
+/*GERAL*/
+.align{
+    vertical-align: middle;
 }

@@ -93,7 +93,6 @@ class PedidoController extends Controller
                 'pedido_id' => $id,
             ]);
         }
-
         return redirect()->route('home')->with('success', "Pedido realizado com sucesso");
     }
 
@@ -120,7 +119,11 @@ class PedidoController extends Controller
      */
     public function edit(Pedido $pedido)
     {
-        //
+        $pastel_pedido = Pastel_pedido::where('pedido_id', $pedido->id)->get();
+        $status_pedido = Status_pedido::all();
+        $pasteis = Pastel::all();
+        $cupons = Cupom::all();
+        return view('sections.pedido.edit', ['pedido' => $pedido])->with('pastel_pedido',$pastel_pedido)->with('pasteis',$pasteis)->with('cupons',$cupons);
     }
 
     /**
@@ -172,9 +175,7 @@ class PedidoController extends Controller
         $pedidos = Pedido::orderByRaw('YEAR(created_at),MONTH(created_at),DAY(created_at)  asc, status_pedido_id asc')->get(); //Ordena sem horário
         $pastel_pedido = Pastel_pedido::all();
         $status_pedido = Status_pedido::all();
-        $cupons = Cupom::all();
-        $pagamentos = Pagamento::all();
         $users = User::all();
-        return view('sections.pedido.control')->with('pedidos', $pedidos)->with('pastel_pedido', $pastel_pedido)->with('status_pedido', $status_pedido)->with('cupons', $cupons)->with('cupons', $cupons)->with('users',$users);
+        return view('sections.pedido.control')->with('pedidos', $pedidos)->with('pastel_pedido', $pastel_pedido)->with('status_pedido', $status_pedido)->with('users',$users);
     }
 }

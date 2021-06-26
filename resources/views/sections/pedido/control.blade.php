@@ -2,7 +2,7 @@
 
 @section('content')
 		
-	<table id="Pedidos_all" class="table table-bordeless table-hover">
+	<table id="Pedidos_all" class="table table-bordeless table-hover align">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -24,11 +24,11 @@
 			    		$hora = "".$datetime->format('H:i');
 			    	@endphp
 			    <tr>
-			    	<td valign="middle">{{$pedido->id}}</td>
-			    	<td valign="middle">{{$data}}</td>
-			    	<td valign="middle">{{$hora}}</td>
-			    	<td valign="middle">R$ {{$pedido->total}}</td>
-			    	<td valign="middle">
+			    	<td> {{$pedido->id}}</td>
+			    	<td> {{$data}}</td>
+			    	<td> {{$hora}}</td>
+			    	<td> R$ {{$pedido->total}}</td>
+			    	<td> 
 			    		<select name="status_pedido_id" id="status_pedido_id" class="form-select" onchange="StatusPedidoUpdate({{$pedido->id}}, this.value, {{ Auth::user()->id }})">
 			    			@foreach($status_pedido as $status)
 								<option value={{$status['id']}}
@@ -39,9 +39,9 @@
 							@endforeach
 						</select>
 			    	</td>
-			    	<td valign="middle">{{$users[$pedido->user_id-1]['name']}}</td>
-			    	<td valign="middle">{{$users[$pedido->user_id-1]['endereco']}} {{$users[$pedido->user_id-1]['complemento']}}</td>
-			    	<td valign="middle">{{$users[$pedido->user_id-1]['bairro']}}, {{$users[$pedido->user_id-1]['cidade']}}</td>
+			    	<td> {{$users[$pedido->user_id-1]['name']}}</td>
+			    	<td> {{$users[$pedido->user_id-1]['endereco']}} {{$users[$pedido->user_id-1]['complemento']}}</td>
+			    	<td> {{$users[$pedido->user_id-1]['bairro']}}, {{$users[$pedido->user_id-1]['cidade']}}</td>
 
 			    	<td align="center" valign="middle">
 			    		<form action="{{ route('pedidos.show', $pedido->id) }}" method="GET">

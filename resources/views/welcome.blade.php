@@ -50,7 +50,7 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <a href="#" class="btn btn-success btn-lg" role="button" aria-disabled="true">Fazer um pedido #TODO LINK</a>
+                <a href="{{route('pasteis.index')}}" class="btn btn-success btn-lg" role="button" aria-disabled="true">Fazer um pedido</a>
             </div>
         </div>
     </div>

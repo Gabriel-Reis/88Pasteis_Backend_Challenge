@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pastel_pedido;
+use App\Models\Pedido;
+use App\Models\Pastel;
 use Illuminate\Http\Request;
 
 class PastelPedidoController extends Controller
@@ -35,7 +37,17 @@ class PastelPedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Pastel_pedido::create([
+            'quantidade' => 1,
+            'pastel_id' => $request->pastel_id,
+            'pedido_id' => $request->pedido_id,
+        ]);
+        //edita total do pedido
+        $pedido = Pedido::find($request->pedido_id);
+        $pastel = Pastel::find($request->pastel_id);
+        $pedido->total = $pedido->total+$pastel->preco_unit;
+        $pedido->save();
+        return redirect()->route('pastel_pedido.edit',$request->pedido_id)->with('success', "Pedido realizado com sucesso");
     }
 
     /**

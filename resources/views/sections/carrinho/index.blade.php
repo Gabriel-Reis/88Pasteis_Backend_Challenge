@@ -13,7 +13,7 @@
 <div class="mask-container">
 	<div class="mask"></div>
 	<div class="container">
-		<table class="table">
+		<table class="table align">
 			<thead>
 				<tr>
 					<th scope="col" colspan="2">Produto</th>
@@ -31,23 +31,23 @@
 					
 					<tr> 
 						<input id="ID" type="hidden" value="{{$dbID}}">
-						<td valign="middle">
+						<td> 
 							<div class="cart-full-img"> 
 								<img src="{{$pasteis[$dbID-1]->foto}}" alt="...">
 							</div>
 						</td>
-						<td valign="middle"> 
-							<div valign="middle">
+						<td>  
+							<div>
 								<h5>{{$pasteis[$dbID-1]->titulo}}</h5>
 								<p>{{$pasteis[$dbID-1]->descricao}}</p>
 							</div>
 						</td>
-						<td valign="middle"> 
+						<td>  
 							<div class="quantity buttons_added">	
 								<input type="button" value="-" class="minus cart_review_minus"><input type="number" id="qnt" step="1" min="1" max="" name="quantity" value="{{$item['qnt']}}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus cart_review_plus">
 							</div>
 						</td>
-						<td valign="middle"> 
+						<td>  
 							<b>R$ </b><b id="price">{{number_format($pasteis[$dbID-1]->preco_unit * $item['qnt'],2)}}</b>
 						</td>
 					</tr>
@@ -55,8 +55,8 @@
 
 				<tfoot>
 					<tr>
-						<th valign="middle" colspan="3"></th>
-						<th valign="middle">
+						<th colspan="3"></th>
+						<th>
 							<b>R$ </b><b id="price_total">{{number_format($total,2)}}</b>
 						</th>
 					</tr>
