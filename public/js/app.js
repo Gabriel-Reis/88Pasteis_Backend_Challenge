@@ -351,7 +351,7 @@ function StatusPedidoUpdate($pedido_id, $status_id,$user_id){
 }
 
 // ***************************************************************************************************************************************//
-//                                                                 TABLE ORDER
+//                                                                 TABLE ORDER (DataTable)
 // ***************************************************************************************************************************************//
 
  // Create an array with the values of all the select options in a column 
@@ -368,7 +368,7 @@ $(document).ready( function () {
         "columns": [
             null,null,null,null,
             { "orderDataType": "dom-select" },
-            null,null,null,null,
+            null,null,null,null,null,null
             
         ],
         language: {
