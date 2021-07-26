@@ -14,6 +14,8 @@
 				<th>Endereço</th>
 				<th>Bairro</th>
 				<th>Ver pedido</th>
+				<th>Editar pedido</th>
+				<th>Excluir pedido</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -47,6 +49,18 @@
 			    		<form action="{{ route('pedidos.show', $pedido->id) }}" method="GET">
                         	<button class="btn btn-primary" type="submit" >Ver</button>
                     	</form>
+                    </td>
+
+                    <td  align="center" valign="middle">
+				    	<form action="{{ route('pedidos.edit', $pedido->id) }}" method="GET">
+	                       	<button class="btn btn-warning" type="submit" >Editar</button>
+	                   	</form>
+	                </td>
+	                
+	                <td  align="center" valign="middle">
+				    	<form action="{{ route('pedidos.destroy', $pedido->id) }}" method="GET">
+	                       	<button class="btn btn-danger" type="submit" >Excluir</button>
+	                   	</form>
                     </td>
 			    </tr>
 			@endforeach
