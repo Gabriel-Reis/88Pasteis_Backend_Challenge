@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Pedido;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Log;
 use App\Models\Pastel_pedido;
 use App\Models\Status_pedido;
+use Illuminate\Http\Request;
 use App\Models\Pagamento;
+use App\Models\Pedido;
 use App\Models\Pastel;
 use App\Models\Cupom;
 use App\Models\User;
 use Carbon\Carbon;
-use DB;
 use Auth;
+use DB;
 
 class PedidoController extends Controller
 {
@@ -135,7 +137,20 @@ class PedidoController extends Controller
      */
     public function update(Request $request, Pedido $pedido)
     {
-        //
+        // $pedido = Pedido::find($request->pedido_id);
+
+        
+        // atualiza pastel atual
+        // recupera todos pasteis e atualiza total
+        
+        // $pedido->save();
+        // $total = str_replace('R$', '', $request->total);
+        // $pedido->total = floatval($total);
+
+        // $pedido->updated_by = $request->user_id;
+        // $pedido->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+
+        // return Redirect::route('pedidos.index');
     }
 
     /**

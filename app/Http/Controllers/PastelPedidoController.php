@@ -6,6 +6,7 @@ use App\Models\Pastel_pedido;
 use App\Models\Pedido;
 use App\Models\Pastel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PastelPedidoController extends Controller
 {
@@ -47,7 +48,7 @@ class PastelPedidoController extends Controller
         $pastel = Pastel::find($request->pastel_id);
         $pedido->total = $pedido->total+$pastel->preco_unit;
         $pedido->save();
-        return redirect()->route('pastel_pedido.edit',$request->pedido_id)->with('success', "Pedido realizado com sucesso");
+        return redirect()->route('pastel_pedido.edit',$request->pedido_id)->with('success', "Pedido editado com sucesso");
     }
 
     /**
@@ -81,7 +82,24 @@ class PastelPedidoController extends Controller
      */
     public function update(Request $request, Pastel_pedido $pastel_pedido)
     {
-        //
+        //atualiza quantidade
+        $pastel_pedido = Pastel_pedido::find($request->pastel_pedido_id);
+        $pastel_pedido->quantidade = $request->qnt;
+        $pastel_pedido->save();
+        Log::info("Quantidade pastel_pedido atualizado");
+        
+        //atualiza total pedido
+        $sum = 0;
+        $pastel_pedido_todos = Pastel_pedido::where('pedido_id',$request->pedido_id)->get(); //recupera todos os pastel_pedido relacionados ao pedido
+        foreach ($pastel_pedido_todos as $p){
+            $unit = Pastel::find($p->pastel_id)->preco_unit;
+            $sum += $unit*$p->quantidade;
+        }
+        $pedido = Pedido::find($request->pedido_id);
+        $pedido->total = $sum;
+        $pedido->save();
+        Log::info("Preco total atualizado");
+        return redirect()->route('pedidos.edit',$request->pedido_id)->with('success', "Pedido editado com sucesso");
     }
 
     /**

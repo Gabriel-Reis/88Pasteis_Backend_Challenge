@@ -236,27 +236,37 @@ function SendCart_Edit($data,$qnt){
 
 $(".order_edit_plus").click(function() {
     //Recupera quantidade e preco unitario
-    var $qnt = parseFloat($(this).closest("tr").find("#qnt").val())+1;
-    var $price_unit = parseFloat($(this).closest("tr").find("#unit").text().replace("R$", ""));
-    //Atualiza valor da linha
-    $(this).closest("tr").find("#price").text("R$ "+($qnt*$price_unit).toFixed(2));
+    var $qnt = parseFloat($(this).closest(".row").find("#qnt").val().replace("R$", ""))+1;
+    var $price_unit = parseFloat($(this).closest(".row").find(".unit_value").val().replace("R$", "")); //.replace("R$", ""));
     
-    //Atualiza total
-    var $total = parseFloat($(this).closest("table").find("#total").text().replace("R$", ""));
-    $(this).closest("table").find("#total").text("R$ "+($total+$price_unit).toFixed(2));
+    // //Atualiza valor da linha
+    $(this).closest(".row").find(".price_total").val("R$ "+($price_unit*$qnt).toFixed(2));
+    $total = parseFloat(document.getElementById("total").innerHTML.replace("R$", ""));
+    document.getElementById("total").innerHTML = "R$ "+($total+$price_unit).toFixed(2);
+
+    // //Atualiza total
+    // $(this).closest("table").find("#total").text("R$ "+($total+$price_unit).toFixed(2));
+    // console.log($(this).closest("tr").find("#price_total").find("#total").val());
+    
 });
 
 $(".order_edit_minus").click(function() {
-    var $qnt = parseFloat($(this).closest("tr").find("#qnt").val())-1;
+    //Recupera quantidade e preco unitario
+    var $qnt = parseFloat($(this).closest(".row").find("#qnt").val().replace("R$", ""))-1;
+    var $price_unit = parseFloat($(this).closest(".row").find(".unit_value").val().replace("R$", "")); //.replace("R$", ""));
+    
+    
     if($qnt >= 0){
-        var $price_unit = parseFloat($(this).closest("tr").find("#unit").text().replace("R$", ""));
-        $(this).closest("tr").find("#price").text("R$ "+($qnt*$price_unit).toFixed(2));
-        var $total = parseFloat($(this).closest("table").find("#total").text().replace("R$", ""));
-        $(this).closest("table").find("#total").text("R$ "+($total-$price_unit).toFixed(2));
+        //Atualiza valor da linha
+        $(this).closest(".row").find(".price_total").val("R$ "+($price_unit*$qnt).toFixed(2));
+        $total = parseFloat(document.getElementById("total").innerHTML.replace("R$", ""));
+        document.getElementById("total").innerHTML = "R$ "+($total-$price_unit).toFixed(2);
+        
+        //var $total = parseFloat($(this).closest("table").find("#total").text().replace("R$", ""));
+        //$(this).closest("table").find("#total").text("R$ "+($total-$price_unit).toFixed(2));
     }
     else{
-        var $price_unit = parseFloat($(this).closest("tr").find("#unit").text().replace("R$", ""));
-        $(this).closest("tr").find("#price").text("R$ "+(0).toFixed(2));
+        $(this).closest(".row").find(".price_total").val("R$ "+(0).toFixed(2));
     }
 });
 
