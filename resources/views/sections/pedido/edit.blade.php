@@ -35,7 +35,7 @@
 
 					<div class="col-md-2">
 						<div class="quantity buttons_added"> 
-							<input type="button" value="-" class="minus order_edit_minus"><input type="number" step="1" min="0" max="" name="qnt" value="{{$pastel->quantidade}}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus order_edit_plus">
+							<input type="button" value="-" class="order_edit_minus minus"><input type="number" step="1" min="0" max="" name="qnt" value="{{$pastel->quantidade}}" title="Qty" class="input-text qty qnt text" size="4" pattern="" inputmode=""><input type="button" value="+" class="order_edit_plus plus">
 						</div>
 					</div>
 
@@ -71,6 +71,30 @@
 			</div>
 		</div>
 	</form>
+
+	<hr>
+
+	<form>
+		<div class="row">
+			<div class="col-md-3">
+				<label style="font-size:20px">Adicionar pastel ao pedido</label>
+			</div>
+			<div class="col-md-2">
+				<select id="add_new" class="form-select">
+					<option disabled selected value="0">Adicionar pastel</option>
+					@foreach ($pasteis as $pastel)
+						@if(array_search($pastel->id, array_column($pastel_pedido->toArray(), 'pastel_id')) === false) {{-- somente pasteis não presentes no pedido --}}
+							<option value="{{$pastel['id']}}">{{ $pastel['titulo'] }}</option>
+						@endif
+					@endforeach
+				</select>
+			</div>
+			<div class="col-md-3">
+				<button class="btn btn-primary " onclick="EditOrder_AddNew( '{{route('pastel_pedido.store')}}', {{$pedido->id}})">Adicionar pastel</button>
+			</div>
+		</div>
+	</form>
+
 
 
 

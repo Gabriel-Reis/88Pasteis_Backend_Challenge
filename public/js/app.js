@@ -256,7 +256,7 @@ function SendCart_Edit($data,$qnt){
 
 $(".order_edit_plus").click(function() {
     //Recupera quantidade e preco unitario
-    var $qnt = parseFloat($(this).closest(".row").find(".qty").val().replace("R$", ""))+1;
+    var $qnt = parseFloat($(this).closest(".row").find(".qnt").val().replace("R$", ""))+1;
     var $price_unit = parseFloat($(this).closest(".row").find(".unit_value").val().replace("R$", "")); //.replace("R$", ""));
     
     // //Atualiza valor da linha
@@ -272,7 +272,7 @@ $(".order_edit_plus").click(function() {
 
 $(".order_edit_minus").click(function() {
     //Recupera quantidade e preco unitario
-    var $qnt = parseFloat($(this).closest(".row").find(".qty").val().replace("R$", ""))-1;
+    var $qnt = parseFloat($(this).closest(".row").find(".qnt").val().replace("R$", ""))-1;
     var $price_unit = parseFloat($(this).closest(".row").find(".unit_value").val().replace("R$", "")); //.replace("R$", ""));
     
     
@@ -289,6 +289,24 @@ $(".order_edit_minus").click(function() {
         $(this).closest(".row").find(".price_total").val("R$ "+(0).toFixed(2));
     }
 });
+
+function EditOrder_AddNew($route, $pedido){
+    var $id = document.getElementById("add_new").value;
+    $.ajax({
+        url:$route,  
+        method:"POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },  
+        data:{
+            pedido_id: $pedido,
+            pastel_id: $id,
+        },                              
+        success: function( data ) {
+            document.location.reload(true);
+        }
+    });
+}
 
 function InsertRow_pedidoEdit($pasteis){
     var $id = document.getElementById("add_new").selectedIndex-1;
@@ -352,7 +370,7 @@ function StatusPedidoUpdate($pedido_id, $status_id,$user_id){
             status_id: $status_id
         },                              
         success: function( data ) {
-            // console.log(data);
+            window.location.reload();
         }
     });
 }
