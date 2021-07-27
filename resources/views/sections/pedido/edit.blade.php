@@ -25,8 +25,8 @@
 			<form method="post" action="{{route('pastel_pedido.update', $pedido->id)}}">
 				@csrf
 				{{ method_field('patch') }}
-				<input class="form-control" type='hidden' id='pedido_id' name='pedido_id' value={{$pedido->id}}>
-				<input class="form-control" type='hidden' id='pastel_pedido_id' name='pastel_pedido_id' value={{$pastel->id}} >
+				<input class="form-control" type='hidden' name='pedido_id' value={{$pedido->id}}>
+				<input class="form-control" type='hidden' name='pastel_pedido_id' value={{$pastel->id}} >
 
 				<div id="row" name="row" class="row mb-3 mt-3">
 					<div class="col-md-3">
@@ -35,7 +35,7 @@
 
 					<div class="col-md-2">
 						<div class="quantity buttons_added"> 
-							<input type="button" value="-" class="minus order_edit_minus"><input type="number" id="qnt" step="1" min="0" max="" name="qnt" value="{{$pastel->quantidade}}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus order_edit_plus">
+							<input type="button" value="-" class="minus order_edit_minus"><input type="number" step="1" min="0" max="" name="qnt" value="{{$pastel->quantidade}}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus order_edit_plus">
 						</div>
 					</div>
 

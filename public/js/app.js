@@ -256,7 +256,7 @@ function SendCart_Edit($data,$qnt){
 
 $(".order_edit_plus").click(function() {
     //Recupera quantidade e preco unitario
-    var $qnt = parseFloat($(this).closest(".row").find("#qnt").val().replace("R$", ""))+1;
+    var $qnt = parseFloat($(this).closest(".row").find(".qty").val().replace("R$", ""))+1;
     var $price_unit = parseFloat($(this).closest(".row").find(".unit_value").val().replace("R$", "")); //.replace("R$", ""));
     
     // //Atualiza valor da linha
@@ -272,7 +272,7 @@ $(".order_edit_plus").click(function() {
 
 $(".order_edit_minus").click(function() {
     //Recupera quantidade e preco unitario
-    var $qnt = parseFloat($(this).closest(".row").find("#qnt").val().replace("R$", ""))-1;
+    var $qnt = parseFloat($(this).closest(".row").find(".qty").val().replace("R$", ""))-1;
     var $price_unit = parseFloat($(this).closest(".row").find(".unit_value").val().replace("R$", "")); //.replace("R$", ""));
     
     
