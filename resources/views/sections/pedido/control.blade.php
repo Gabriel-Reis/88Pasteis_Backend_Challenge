@@ -43,7 +43,8 @@
 									@endif
 									@if($status['id'] < $status_pedido[$pedido->status_pedido_id]['id'])
 										disabled 
-									@endif>
+									@endif
+									style="background-color:white;">
 								{{$status['descricao']}} </option>
 							@endforeach
 						</select>
