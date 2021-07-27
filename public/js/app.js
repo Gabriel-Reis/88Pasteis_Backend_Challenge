@@ -1,4 +1,3 @@
-
 // ***************************************************************************************************************************************//
 //                                                                  BOTÕES +/-
 // ***************************************************************************************************************************************//
@@ -39,7 +38,28 @@ String.prototype.getDecimals || (String.prototype.getDecimals = function() {
 
 
 // ***************************************************************************************************************************************//
-//                                                          PÁGINA EDITAR CARRINHO (INDEX)
+//                                                                 GERAL
+// ***************************************************************************************************************************************//
+
+//TEXT MASKS
+$(document).ready(function($){
+    $('#date').mask('00/00/0000');
+    $('#cep').mask('00000-000');
+    $('#telefone').mask('(00) 0000-00000');
+    $('#cpf').mask('000.000.000-00', {reverse: true});
+});
+$(document).on({
+    ajaxStart: function(){
+        $('table').addClass("loading"); 
+    },
+    ajaxStop: function(){ 
+        $('table').removeClass("loading");
+    }    
+});
+
+
+// ***************************************************************************************************************************************//
+//                                                          PÁGINA EDITAR CARRINHO (views\sections\carrinho\index.blade.php)
 // ***************************************************************************************************************************************//
 //Edit price total on cart edit
 $(".cart_review_plus").click(function() {
@@ -117,7 +137,7 @@ function SendCart_Review($data,$item,$text,$text_total,$item_total){
 }
 
 // ***************************************************************************************************************************************//
-//                                                           PÁGINA CARDAPIO
+//                                                           PÁGINA CARDAPIO (views\cardapio.blade.php)
 // ***************************************************************************************************************************************//
 
 //Edit price total on cart edit
@@ -231,7 +251,7 @@ function SendCart_Edit($data,$qnt){
 
 
 // ***************************************************************************************************************************************//
-//                                                           EDITAR PEDIDO
+//                                                           EDITAR PEDIDO (views\sections\pedido\edit.blade)
 // ***************************************************************************************************************************************//
 
 $(".order_edit_plus").click(function() {
@@ -298,27 +318,9 @@ function InsertRow_pedidoEdit2($route,$pedido){
 }
 
 
-
 // ***************************************************************************************************************************************//
-//                                                                 GERAL
+//                                                           CRIAR PEDIDO (views\sections\pedido\create.blade.php)
 // ***************************************************************************************************************************************//
-
-//TEXT MASKS
-$(document).ready(function($){
-    $('#date').mask('00/00/0000');
-    $('#cep').mask('00000-000');
-    $('#telefone').mask('(00) 0000-00000');
-    $('#cpf').mask('000.000.000-00', {reverse: true});
-});
-$(document).on({
-    ajaxStart: function(){
-        $('table').addClass("loading"); 
-    },
-    ajaxStop: function(){ 
-        $('table').removeClass("loading");
-    }    
-});
-
 //Atualiza valor total
 function PriceUpdate($price, $id, $cupons){
     if($id == 0)
@@ -328,6 +330,11 @@ function PriceUpdate($price, $id, $cupons){
     else
         document.getElementById("total").value = parseFloat($price-$cupons[$id-1].desconto).toFixed(2);
 }
+
+
+// ***************************************************************************************************************************************//
+//                                                           VER TODOS OS PEDIDOS - ADM (views\sections\pedido\control.blade.php)
+// ***************************************************************************************************************************************//
 
 //Atualiza status do pedido
 function StatusPedidoUpdate($pedido_id, $status_id,$user_id){
@@ -361,7 +368,6 @@ $.fn.dataTable.ext.order['dom-select'] = function  ( settings, col )
         return $('select', td).val();
     } );
 }
-
 
 $(document).ready( function () {
     $('#Pedidos_all').DataTable({
