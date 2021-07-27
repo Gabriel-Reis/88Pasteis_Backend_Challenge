@@ -31,11 +31,18 @@
 			    	<td> {{$hora}}</td>
 			    	<td> R$ {{$pedido->total}}</td>
 			    	<td> 
-			    		<select name="status_pedido_id" id="status_pedido_id" class="form-select" onchange="StatusPedidoUpdate({{$pedido->id}}, this.value, {{ Auth::user()->id }})">
+			    		<select name="status_pedido_id" id="status_pedido_id" class="form-select" onchange="StatusPedidoUpdate({{$pedido->id}}, this.value, {{ Auth::user()->id }})" 
+			    			@if($pedido->status_pedido_id == 4) style="background-color:green;" @endif 
+			    			@if($pedido->status_pedido_id == 3) style="background-color:gray ;" @endif
+			    			@if($pedido->status_pedido_id == 2) style="background-color:lightgray ;" @endif
+			    		>
 			    			@foreach($status_pedido as $status)
 								<option value={{$status['id']}}
 									@if($status['id'] == $status_pedido[$pedido->status_pedido_id]['id'])
 										selected
+									@endif
+									@if($status['id'] < $status_pedido[$pedido->status_pedido_id]['id'])
+										disabled 
 									@endif>
 								{{$status['descricao']}} </option>
 							@endforeach
@@ -53,13 +60,13 @@
 
                     <td  align="center" valign="middle">
 				    	<form action="{{ route('pedidos.edit', $pedido->id) }}" method="GET">
-	                       	<button class="btn btn-warning" type="submit" @if($pedido->status_pedido_id>2) disabled="true" @endif>Editar</button>
+	                       	<button class="btn btn-warning" type="submit" @if($pedido->status_pedido_id>=2) disabled="true" @endif>Editar</button>
 	                   	</form>
 	                </td>
 	                
 	                <td  align="center" valign="middle">
 				    	<form action="{{ route('pedidos.destroy', $pedido->id) }}" method="GET">
-	                       	<button class="btn btn-danger" type="submit" @if($pedido->status_pedido_id>2) disabled="true" @endif>Excluir</button>
+	                       	<button class="btn btn-danger" type="submit" @if($pedido->status_pedido_id>=2) disabled="true" @endif>Excluir</button>
 	                   	</form>
                     </td>
 			    </tr>
