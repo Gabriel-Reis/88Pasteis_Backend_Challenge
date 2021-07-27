@@ -53,13 +53,13 @@
 
                     <td  align="center" valign="middle">
 				    	<form action="{{ route('pedidos.edit', $pedido->id) }}" method="GET">
-	                       	<button class="btn btn-warning" type="submit" >Editar</button>
+	                       	<button class="btn btn-warning" type="submit" @if($pedido->status_pedido_id>2) disabled="true" @endif>Editar</button>
 	                   	</form>
 	                </td>
 	                
 	                <td  align="center" valign="middle">
 				    	<form action="{{ route('pedidos.destroy', $pedido->id) }}" method="GET">
-	                       	<button class="btn btn-danger" type="submit" >Excluir</button>
+	                       	<button class="btn btn-danger" type="submit" @if($pedido->status_pedido_id>2) disabled="true" @endif>Excluir</button>
 	                   	</form>
                     </td>
 			    </tr>
