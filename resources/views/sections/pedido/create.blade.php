@@ -20,7 +20,7 @@
 						<input name="user_id" id="user_id" type="hidden" class="form-control" value="{{Auth::id()}}" required utofocus>
 						
 						{{-- status_pedido_id --}}
-						<input name="status_pedido_id" id="status_pedido_id" type="hidden" class="form-control" value="1" required utofocus>
+						<input name="status_pedido_id" id="status_pedido_id" type="hidden" class="form-control" value="0" required utofocus>
 
 
 						{{-- USER NAME (FOR VIEW ONLY) --}}
